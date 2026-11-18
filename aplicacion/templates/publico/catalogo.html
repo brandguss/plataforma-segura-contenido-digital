@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block titulo %}Catálogo{% endblock %}
-{% block contenido %}
-<section class="portada">
-  <div>
+{% block portada %}
+<section class="portada-fondo">
+<div class="portada">
+  <div class="portada-texto">
     <h1>Material de estudio con tu nombre por dentro</h1>
     <p class="entrada">Cada PDF que compras se genera para ti al momento de descargarlo. Lleva un identificador invisible ligado a tu cuenta y a tu orden.</p>
     <ul class="garantias">
@@ -11,15 +12,20 @@
       <li>Conexión cifrada con TLS de principio a fin</li>
     </ul>
     {% if not usuario %}
-      <a class="boton" href="{{ url_for('publico.registro') }}">Crear cuenta</a>
-      <a class="boton secundario" href="{{ url_for('publico.login') }}">Iniciar sesión</a>
+      <div><a class="boton claro" href="{{ url_for('publico.registro') }}">Crear cuenta</a>
+      <a class="boton contorno-claro" href="{{ url_for('publico.login') }}">Iniciar sesión</a></div>
     {% elif usuario.role == 'CLIENTE' %}
-      <a class="boton" href="#catalogo">Ver productos</a>
-      <a class="boton secundario" href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a>
+      <div><a class="boton claro" href="#catalogo">Ver productos</a>
+      <a class="boton contorno-claro" href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a></div>
     {% endif %}
   </div>
   {% include "parciales/roseta.html" %}
+</div>
 </section>
+{% endblock %}
+
+{% block contenido %}
+
 
 <section id="catalogo">
   <div class="seccion-titulo">
@@ -29,7 +35,7 @@
   {% if productos %}
   <div class="documentos">
     {% for p in productos %}
-    <article class="documento">
+    <article class="documento revelar">
       <span class="folio">Nº {{ '%04d'|format(p.id) }}</span>
       <h3>{{ p.name }}</h3>
       <p>{{ p.description[:150] }}{% if p.description|length > 150 %}…{% endif %}</p>

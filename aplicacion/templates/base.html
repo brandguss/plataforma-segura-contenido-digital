@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block titulo %}Catálogo{% endblock %} | Plataforma Segura</title>
-  <link rel="preload" href="{{ url_for('static', filename='fuentes/bodoni-moda-latin-600-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="{{ url_for('static', filename='fuentes/public-sans-latin-400-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='fuentes/poppins-latin-400-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='fuentes/poppins-latin-700-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+  <script src="{{ url_for('static', filename='js_activo.js') }}"></script>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
 {% set ep = request.endpoint or '' %}
@@ -36,7 +38,7 @@
           <a href="{{ url_for('admin.configuracion') }}" class="{{ 'activo' if ep == 'admin.configuracion' }}">Configuración</a>
         {% endif %}
         <span class="quien">
-          {{ usuario.name }} <span class="rol">{{ usuario.role|capitalize }}</span>
+          <span class="quien-nombre">{{ usuario.name }}</span> <span class="rol" title="{{ usuario.name }}">{{ usuario.role|capitalize }}</span>
           <form method="post" action="{{ url_for('publico.logout') }}" class="en-linea">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <button class="enlace">Salir</button>
@@ -49,6 +51,7 @@
     </nav>
   </div>
 </header>
+{% block portada %}{% endblock %}
 <main id="contenido">
   {% with mensajes = get_flashed_messages(with_categories=true) %}
     {% for categoria, mensaje in mensajes %}
