@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Sesiones{% endblock %}
+{% block contenido %}
+<h1>Sesiones activas</h1>
+<table>
+  <tr><th>#</th><th>Usuario</th><th>Rol</th><th>IP</th><th>Inicio</th><th>Última actividad</th><th>Expira</th><th></th></tr>
+  {% for s in sesiones %}
+  <tr>
+    <td>{{ s.id }}</td><td>{{ s.email }}</td><td>{{ s.role }}</td><td>{{ s.ip }}</td>
+    <td>{{ s.created_at }}</td><td>{{ s.last_seen }}</td><td>{{ s.expires_at }}</td>
+    <td>
+      <form method="post" action="{{ url_for('admin.revocar_sesion', sesion_id=s.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="enlace">Revocar</button>
+      </form>
+    </td>
+  </tr>
+  {% else %}
+  <tr><td colspan="8">No hay sesiones activas.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

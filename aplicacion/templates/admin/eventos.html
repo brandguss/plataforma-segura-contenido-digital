@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Eventos de seguridad{% endblock %}
+{% block contenido %}
+<h1>Eventos de seguridad</h1>
+<form method="get" class="filtros">
+  <select name="evento"><option value="">Todos los eventos</option>
+    {% for t in tipos %}<option {% if t == filtro_evento %}selected{% endif %}>{{ t }}</option>{% endfor %}
+  </select>
+  <select name="resultado"><option value="">Todos los resultados</option>
+    {% for r in ['EXITO','FALLO','DENEGADO'] %}<option {% if r == filtro_resultado %}selected{% endif %}>{{ r }}</option>{% endfor %}
+  </select>
+  <button class="boton secundario">Filtrar</button>
+</form>
+<p class="nota">Bitácora de solo inserción: la base de datos bloquea cualquier UPDATE o DELETE sobre esta tabla.</p>
+<table class="compacta">
+  <tr><th>#</th><th>Fecha (UTC)</th><th>Usuario</th><th>Evento</th><th>Resultado</th><th>Origen</th><th>Detalles</th></tr>
+  {% for e in eventos %}
+  <tr>
+    <td>{{ e.id }}</td><td>{{ e.created_at }}</td><td>{{ e.email or '—' }}</td><td><b>{{ e.event }}</b></td>
+    <td><span class="estado {{ e.result|lower }}">{{ e.result }}</span></td><td>{{ e.source }}</td><td>{{ e.details or '' }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

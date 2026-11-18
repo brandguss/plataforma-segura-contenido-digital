@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}Verificar firma{% endblock %}
+{% block contenido %}
+<h1>Verificar firma digital de un comprobante</h1>
+{% if resultado == 'VALIDA' %}
+  <div class="aviso ok">Firma VÁLIDA: el comprobante no fue modificado y lo emitió la plataforma.</div>
+{% elif resultado == 'INVALIDA' %}
+  <div class="aviso error">Firma INVÁLIDA: el comprobante fue alterado o no lo emitió esta plataforma.</div>
+{% elif resultado == 'FORMATO' %}
+  <div class="aviso error">El contenido no es un comprobante JSON válido.</div>
+{% endif %}
+<form class="tarjeta formulario" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Archivo .json del comprobante <input type="file" name="archivo" accept=".json,application/json"></label>
+  <label>…o pega el JSON <textarea name="comprobante" rows="12">{{ texto }}</textarea></label>
+  <button class="boton">Verificar</button>
+  <p class="nota">La verificación usa la clave pública publicada en <code>claves_publicas/firma_publica.pem</code>.</p>
+</form>
+{% endblock %}

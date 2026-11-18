@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Catálogo{% endblock %}
+{% block contenido %}
+<h1>Catálogo de productos digitales</h1>
+<div class="rejilla">
+  {% for p in productos %}
+  <article class="tarjeta">
+    <h3>{{ p.name }}</h3>
+    <p>{{ p.description[:140] }}{% if p.description|length > 140 %}…{% endif %}</p>
+    <p class="precio">{{ p.price|moneda }}</p>
+    <a class="boton secundario" href="{{ url_for('publico.producto', producto_id=p.id) }}">Ver detalle</a>
+  </article>
+  {% else %}
+  <p>No hay productos disponibles.</p>
+  {% endfor %}
+</div>
+{% endblock %}

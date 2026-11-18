@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Orden {{ orden.id }}{% endblock %}
+{% block contenido %}
+<h1>Orden #{{ orden.id }} <span class="estado {{ orden.status|lower }}">{{ orden.status }}</span></h1>
+<p>Cliente: {{ orden.name }} ({{ orden.email }}) · Creada: {{ orden.created_at }}</p>
+<table>
+  <tr><th>Producto</th><th>Precio registrado</th></tr>
+  {% for i in items %}<tr><td>{{ i.name }}</td><td>{{ i.price|moneda }}</td></tr>{% endfor %}
+  <tr><th>Total</th><th>{{ orden.total|moneda }}</th></tr>
+</table>
+<h3>Pagos</h3>
+<table>
+  <tr><th>Referencia</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr>
+  {% for p in pagos %}<tr><td><code>{{ p.transaction_reference }}</code></td><td>{{ p.amount|moneda }}</td><td>{{ p.status }}</td><td>{{ p.created_at }}</td></tr>
+  {% else %}<tr><td colspan="4">Sin pagos.</td></tr>{% endfor %}
+</table>
+{% if transiciones %}
+<form class="tarjeta formulario" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Actualizar estado
+    <select name="status">{% for t in transiciones %}<option>{{ t }}</option>{% endfor %}</select>
+  </label>
+  <button class="boton">Aplicar</button>
+</form>
+{% endif %}
+{% endblock %}

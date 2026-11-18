@@ -1,0 +1,106 @@
+[
+  {
+    "orden": 1,
+    "prueba": "Contraseña incorrecta",
+    "esperado": "Acceso rechazado",
+    "obtenido": "HTTP 401; /cliente/ordenes redirige a login",
+    "pasa": true,
+    "detalle": "Evento LOGIN_FAILED registrado: contraseña incorrecta (intento 1)"
+  },
+  {
+    "orden": 2,
+    "prueba": "CLIENTE intenta una función administrativa",
+    "esperado": "Acceso rechazado",
+    "obtenido": "GET /admin/usuarios → 403; POST cambio de rol → 403",
+    "pasa": true,
+    "detalle": "También /operador/productos → 403. Rol sin cambios: CLIENTE. Eventos ACCESS_DENIED: 3"
+  },
+  {
+    "orden": 3,
+    "prueba": "OPERADOR intenta cambiar roles",
+    "esperado": "Acceso rechazado",
+    "obtenido": "HTTP 403",
+    "pasa": true,
+    "detalle": "El rol del usuario 3 sigue siendo CLIENTE; evento ACCESS_DENIED registrado"
+  },
+  {
+    "orden": 4,
+    "prueba": "ADMINISTRADOR autorizado",
+    "esperado": "Operación permitida",
+    "obtenido": "HTTP 302; rol nuevo = OPERADOR",
+    "pasa": true,
+    "detalle": "Evento ROLE_CHANGED: usuario=cliente1@demo.local CLIENTE->OPERADOR"
+  },
+  {
+    "orden": 5,
+    "prueba": "Certificado TLS correcto",
+    "esperado": "Conexión aceptada",
+    "obtenido": "TLSv1.3 · TLS_AES_256_GCM_SHA384 · HTTP/1.1 200 OK",
+    "pasa": true,
+    "detalle": "Cadena validada contra certificados/ca.crt; emisor: CA Local Plataforma Segura; hostname: localhost"
+  },
+  {
+    "orden": 6,
+    "prueba": "Certificado no confiable",
+    "esperado": "Conexión rechazada",
+    "obtenido": "Handshake TLS abortado por el cliente",
+    "pasa": true,
+    "detalle": "CERTIFICATE_VERIFY_FAILED: self-signed certificate"
+  },
+  {
+    "orden": 7,
+    "prueba": "Comprobante original",
+    "esperado": "Firma digital válida",
+    "obtenido": "FIRMA VÁLIDA (biblioteca y página /cliente/verificar)",
+    "pasa": true,
+    "detalle": "Orden 1, RSA-PSS-SHA256, key_id b96432894e7a8cf2669b37c3d2b5163a. Archivo: evidencias/comprobante_original.json"
+  },
+  {
+    "orden": 8,
+    "prueba": "Comprobante modificado",
+    "esperado": "Firma digital inválida",
+    "obtenido": "FIRMA INVÁLIDA (biblioteca y página web)",
+    "pasa": true,
+    "detalle": "Se cambió total_centavos de 14900 a 100. Archivo: evidencias/comprobante_modificado.json"
+  },
+  {
+    "orden": 9,
+    "prueba": "Producto descargado",
+    "esperado": "Fingerprint recuperable",
+    "obtenido": "Recuperado SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
+    "pasa": true,
+    "detalle": "usuario=3 orden=1 producto=2; HMAC válido; capas: metadato=True, texto en 5/5 páginas. Archivo: evidencias/copia_con_fingerprint.pdf"
+  },
+  {
+    "orden": 10,
+    "prueba": "CLIENTE intenta descargar producto no comprado",
+    "esperado": "Acceso rechazado",
+    "obtenido": "Producto fuera de la orden → 403; orden de otro cliente → 403",
+    "pasa": true,
+    "detalle": "2 eventos DOWNLOAD con resultado DENEGADO"
+  },
+  {
+    "orden": 11,
+    "prueba": "Archivo original",
+    "esperado": "Hash esperado",
+    "obtenido": "SHA-256 coincide",
+    "pasa": true,
+    "detalle": "manual_python_basico.pdf<br>registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1<br>calculado:  6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1"
+  },
+  {
+    "orden": 12,
+    "prueba": "Archivo modificado",
+    "esperado": "Hash diferente",
+    "obtenido": "SHA-256 distinto; descarga bloqueada",
+    "pasa": true,
+    "detalle": "registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1<br>calculado:  5722830bff7d67b68dfdea29b27bcc29ea334764f52bce343346f69daee7cfed<br>Evento INTEGRITY_FAILED registrado"
+  },
+  {
+    "orden": 13,
+    "prueba": "Restauración de respaldo",
+    "esperado": "Información crítica recuperada",
+    "obtenido": "Usuarios, productos y órdenes recuperados",
+    "pasa": true,
+    "detalle": "Respaldo AES-256-GCM respaldo_20261118_040808.psc. Antes: users=4, products=3, orders=2, payments=2, receipts=2. Después: users=4, products=3, orders=2, payments=2, receipts=2. Productos íntegros: 3/3"
+  }
+]

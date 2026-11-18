@@ -1,0 +1,5 @@
+$ /usr/local/bin/python3 scripts/verificar_comprobante.py evidencias/comprobante_modificado.json
+
+Clave pública: /home/claude/psc/claves_publicas/firma_publica.pem  (key_id b96432894e7a8cf2669b37c3d2b5163a)
+Comprobante:   evidencias/comprobante_modificado.json
+Resultado:     FIRMA INVÁLIDA (alterado o emisor distinto)

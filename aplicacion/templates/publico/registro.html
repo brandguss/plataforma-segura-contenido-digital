@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Registro{% endblock %}
+{% block contenido %}
+<form class="tarjeta formulario" method="post">
+  <h1>Crear cuenta</h1>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Nombre <input name="name" maxlength="80" required></label>
+  <label>Correo <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
+  <label>Contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password"></label>
+  <label>Confirmar contraseña <input type="password" name="password2" maxlength="128" required autocomplete="new-password"></label>
+  <p class="nota">Mínimo 10 caracteres combinando letras y números.</p>
+  <button class="boton">Registrarme</button>
+</form>
+{% endblock %}

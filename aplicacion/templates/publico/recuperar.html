@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Recuperar contraseña{% endblock %}
+{% block contenido %}
+<form class="tarjeta formulario" method="post">
+  <h1>Recuperar contraseña</h1>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Correo registrado <input type="email" name="email" maxlength="254" required></label>
+  <p class="nota">Se generará un enlace temporal de un solo uso (correo simulado en la carpeta <code>correo_simulado/</code>).</p>
+  <button class="boton">Enviar enlace</button>
+</form>
+{% endblock %}

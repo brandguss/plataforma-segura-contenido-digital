@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titulo %}Detección de fingerprint{% endblock %}
+{% block contenido %}
+<h1>Detección de fingerprint en una copia sospechosa</h1>
+<form class="tarjeta formulario" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>PDF sospechoso <input type="file" name="archivo" accept="application/pdf" required></label>
+  <button class="boton">Analizar</button>
+</form>
+{% if resultado %}
+  {% if resultado.encontrado %}
+  <div class="aviso ok">Fingerprint recuperado y autenticado (HMAC válido).</div>
+  <div class="tarjeta">
+    <p><b>Fingerprint:</b> <code>{{ resultado.resultado.fingerprint }}</code></p>
+    <p><b>Usuario ID:</b> {{ resultado.resultado.user_id }} · <b>Orden:</b> {{ resultado.resultado.order_id }} · <b>Producto:</b> {{ resultado.resultado.product_id }}</p>
+    <p><b>Capas detectadas:</b> metadato={{ 'sí' if resultado.fuentes.metadato else 'no' }},
+       texto invisible en {{ resultado.fuentes.texto_paginas }} de {{ resultado.fuentes.paginas }} páginas</p>
+    {% if descarga %}
+    <p><b>Descarga registrada:</b> {{ descarga.name }} ({{ descarga.email }}) · {{ descarga.producto }} · {{ descarga.created_at }} desde {{ descarga.source_ip }}</p>
+    {% else %}
+    <p class="aviso error">El fingerprint es auténtico pero no hay descarga registrada con ese identificador.</p>
+    {% endif %}
+  </div>
+  {% else %}
+  <div class="aviso error">No se encontró un fingerprint auténtico en el archivo.
+    {% if resultado.candidatos %}Se hallaron {{ resultado.candidatos|length }} identificador(es) con HMAC inválido (posible falsificación).{% endif %}
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

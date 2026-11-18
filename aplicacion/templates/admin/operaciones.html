@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block titulo %}Operaciones{% endblock %}
+{% block contenido %}
+<h1>Operaciones del sistema</h1>
+<div class="rejilla indicadores">
+  {% for k, v in resumen.items() %}<div class="tarjeta"><small>{{ k|replace('_',' ') }}</small><b>{{ v }}</b></div>{% endfor %}
+</div>
+<h3>Pagos simulados</h3>
+<table class="compacta">
+  <tr><th>Orden</th><th>Cliente</th><th>Referencia</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr>
+  {% for p in pagos %}<tr><td>{{ p.order_id }}</td><td>{{ p.email }}</td><td><code>{{ p.transaction_reference }}</code></td><td>{{ p.amount|moneda }}</td><td>{{ p.status }}</td><td>{{ p.created_at }}</td></tr>{% endfor %}
+</table>
+<h3>Descargas con fingerprint</h3>
+<table class="compacta">
+  <tr><th>Orden</th><th>Producto</th><th>Cliente</th><th>Fingerprint</th><th>IP</th><th>Fecha</th></tr>
+  {% for d in descargas %}<tr><td>{{ d.order_id }}</td><td>{{ d.product_id }}</td><td>{{ d.email }}</td><td><code class="mini">{{ d.fingerprint }}</code></td><td>{{ d.source_ip }}</td><td>{{ d.created_at }}</td></tr>{% endfor %}
+</table>
+{% endblock %}

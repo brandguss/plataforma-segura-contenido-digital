@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Mis órdenes{% endblock %}
+{% block contenido %}
+<h1>Mis órdenes</h1>
+<table>
+  <tr><th>#</th><th>Fecha</th><th>Total</th><th>Estado</th><th></th></tr>
+  {% for o in ordenes %}
+  <tr>
+    <td>{{ o.id }}</td><td>{{ o.created_at }}</td><td>{{ o.total|moneda }}</td>
+    <td><span class="estado {{ o.status|lower }}">{{ o.status }}</span></td>
+    <td><a href="{{ url_for('cliente.orden', orden_id=o.id) }}">Ver</a></td>
+  </tr>
+  {% else %}
+  <tr><td colspan="5">Aún no tienes órdenes.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

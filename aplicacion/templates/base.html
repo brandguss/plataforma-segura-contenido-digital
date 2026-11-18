@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Plataforma Segura{% endblock %} · Contenido Digital</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="{{ url_for('publico.catalogo') }}">🔒 Plataforma Segura</a>
+  <nav>
+    <a href="{{ url_for('publico.catalogo') }}">Catálogo</a>
+    {% if usuario %}
+      {% if usuario.role == 'CLIENTE' %}
+        <a href="{{ url_for('cliente.carrito') }}">Carrito</a>
+        <a href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a>
+        <a href="{{ url_for('cliente.verificar') }}">Verificar firma</a>
+        <a href="{{ url_for('cliente.perfil') }}">Perfil</a>
+      {% elif usuario.role == 'OPERADOR' %}
+        <a href="{{ url_for('operador.productos') }}">Productos</a>
+        <a href="{{ url_for('operador.ordenes') }}">Órdenes</a>
+      {% elif usuario.role == 'ADMINISTRADOR' %}
+        <a href="{{ url_for('admin.usuarios') }}">Usuarios</a>
+        <a href="{{ url_for('admin.sesiones') }}">Sesiones</a>
+        <a href="{{ url_for('admin.eventos') }}">Eventos</a>
+        <a href="{{ url_for('admin.operaciones') }}">Operaciones</a>
+        <a href="{{ url_for('admin.detectar_fingerprint') }}">Fingerprint</a>
+        <a href="{{ url_for('admin.configuracion') }}">Configuración</a>
+      {% endif %}
+      <span class="quien">{{ usuario.name }} · <b>{{ usuario.role }}</b></span>
+      <form method="post" action="{{ url_for('publico.logout') }}" class="en-linea">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="enlace">Salir</button>
+      </form>
+    {% else %}
+      <a href="{{ url_for('publico.login') }}">Iniciar sesión</a>
+      <a href="{{ url_for('publico.registro') }}">Registrarse</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% for categoria, mensaje in mensajes %}
+      <div class="aviso {{ categoria }}">{{ mensaje }}</div>
+    {% endfor %}
+  {% endwith %}
+  {% block contenido %}{% endblock %}
+</main>
+<footer>Proyecto académico · Pagos simulados · Sin datos reales</footer>
+</body>
+</html>

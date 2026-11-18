@@ -1,0 +1,11 @@
+$ /usr/local/bin/python3 scripts/verificar_hash.py
+
+[OK] #1 Manual de Python Básico
+     registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1
+     actual:     6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1
+[OK] #2 Guía Práctica de Consultas SQL
+     registrado: 13bf644f7d1c0813336cd0d921f5111ae52a3f793a5eced083fb8ad1932d6e5d
+     actual:     13bf644f7d1c0813336cd0d921f5111ae52a3f793a5eced083fb8ad1932d6e5d
+[OK] #3 Apuntes de Criptografía Aplicada
+     registrado: a9727ecfefe9c90ae8befb4cee24728bd000ac8902593192d6ece2c837b76a35
+     actual:     a9727ecfefe9c90ae8befb4cee24728bd000ac8902593192d6ece2c837b76a35

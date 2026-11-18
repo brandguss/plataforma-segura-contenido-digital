@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Productos{% endblock %}
+{% block contenido %}
+<h1>Productos <a class="boton" href="{{ url_for('operador.nuevo_producto') }}">+ Nuevo</a></h1>
+<table>
+  <tr><th>#</th><th>Nombre</th><th>Precio</th><th>Estado</th><th>Integridad SHA-256</th><th></th></tr>
+  {% for p in productos %}
+  <tr>
+    <td>{{ p.id }}</td><td>{{ p.name }}</td><td>{{ p.price|moneda }}</td>
+    <td><span class="estado {{ p.status|lower }}">{{ p.status }}</span></td>
+    <td>{% if integridad[p.id] %}<span class="estado pagada">OK</span>{% else %}<span class="estado rechazada">ALTERADO</span>{% endif %}
+        <br><code class="mini">{{ p.file_hash[:16] }}…</code></td>
+    <td>
+      <a href="{{ url_for('operador.editar_producto', producto_id=p.id) }}">Editar</a>
+      <form method="post" action="{{ url_for('operador.estado_producto', producto_id=p.id) }}" class="en-linea">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="enlace">{{ 'Desactivar' if p.status == 'ACTIVO' else 'Activar' }}</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

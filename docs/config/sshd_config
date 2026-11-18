@@ -1,0 +1,54 @@
+# =====================================================================
+# /etc/ssh/sshd_config endurecido para el servidor de aplicación
+# Plataforma Segura de Contenido Digital
+#
+# Aplicar:  sudo cp sshd_config /etc/ssh/sshd_config
+#           sudo sshd -t            (valida la sintaxis ANTES de reiniciar)
+#           sudo systemctl restart ssh
+# Mantén abierta una sesión SSH mientras pruebas otra nueva, para no quedarte fuera.
+# =====================================================================
+
+# --- Red --------------------------------------------------------------
+Port 22
+# Solo escucha en la interfaz de la red administrativa (detrás de la VPN),
+# nunca en la interfaz pública.
+ListenAddress 10.20.0.10
+AddressFamily inet
+
+# --- Autenticación ----------------------------------------------------
+PermitRootLogin no                     # root nunca entra por SSH
+PubkeyAuthentication yes               # solo par de claves
+PasswordAuthentication no              # sin contraseñas: no hay fuerza bruta posible
+KbdInteractiveAuthentication no
+PermitEmptyPasswords no
+AuthenticationMethods publickey
+AllowUsers psc-admin                   # único usuario administrativo permitido
+MaxAuthTries 3
+LoginGraceTime 30
+MaxSessions 3
+MaxStartups 5:50:20
+
+# --- Algoritmos modernos ---------------------------------------------
+KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+HostKeyAlgorithms ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+PubkeyAcceptedAlgorithms ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# --- Reducción de superficie -----------------------------------------
+X11Forwarding no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PermitTunnel no
+GatewayPorts no
+PermitUserEnvironment no
+ClientAliveInterval 300                # cierra sesiones inactivas tras 10 min
+ClientAliveCountMax 2
+
+# --- Registro --------------------------------------------------------
+LogLevel VERBOSE                       # registra la huella de la llave usada en cada acceso
+SyslogFacility AUTH
+Banner /etc/issue.net
+
+Subsystem sftp internal-sftp

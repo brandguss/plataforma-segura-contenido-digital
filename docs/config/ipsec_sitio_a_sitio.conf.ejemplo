@@ -1,0 +1,37 @@
+# =====================================================================
+# EJEMPLO DE DISEÑO: túnel IPSec sitio a sitio en MODO TÚNEL (strongSwan, swanctl.conf)
+# Protege el tráfico entre la sede de administración y el centro de datos.
+#
+#   Sede administración 192.168.50.0/24 --[gw-sede 203.0.113.10]==IPSec==[gw-dc 198.51.100.20]-- 10.20.0.0/24 Centro de datos
+#
+# Archivo en gw-sede: /etc/swanctl/swanctl.conf
+# =====================================================================
+connections {
+    sede-a-datacenter {
+        version = 2                                  # IKEv2
+        local_addrs  = 203.0.113.10
+        remote_addrs = 198.51.100.20
+        proposals = aes256gcm16-sha384-ecp384        # IKE: AES-256-GCM, SHA-384, ECDH P-384
+
+        local {
+            auth = pubkey
+            certs = gw-sede.crt                      # certificado emitido por la CA corporativa
+            id = gw-sede.plataforma.local
+        }
+        remote {
+            auth = pubkey
+            id = gw-dc.plataforma.local
+        }
+        children {
+            red-administrativa {
+                mode = tunnel                        # se cifra el paquete IP COMPLETO (cabecera original incluida)
+                local_ts  = 192.168.50.0/24
+                remote_ts = 10.20.0.0/24
+                esp_proposals = aes256gcm16-ecp384   # ESP con PFS
+                start_action = start
+                dpd_action = restart
+                rekey_time = 1h
+            }
+        }
+    }
+}

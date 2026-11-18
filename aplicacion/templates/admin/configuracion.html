@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Configuración de seguridad{% endblock %}
+{% block contenido %}
+<form class="tarjeta formulario" method="post">
+  <h1>Configuración de seguridad</h1>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  {% for clave, (minimo, maximo, etiqueta) in limites.items() %}
+  <label>{{ etiqueta }} ({{ minimo }}–{{ maximo }})
+    <input type="number" name="{{ clave }}" min="{{ minimo }}" max="{{ maximo }}" required value="{{ valores.get(clave, '') }}">
+  </label>
+  {% endfor %}
+  <button class="boton">Guardar</button>
+</form>
+{% endblock %}

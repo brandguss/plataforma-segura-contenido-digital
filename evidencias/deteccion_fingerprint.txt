@@ -1,0 +1,31 @@
+$ /usr/local/bin/python3 scripts/detectar_fingerprint.py evidencias/copia_con_fingerprint.pdf
+
+{
+  "analisis": {
+    "encontrado": true,
+    "resultado": {
+      "fingerprint": "SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
+      "fid": "3322cbf1",
+      "user_id": 3,
+      "order_id": 1,
+      "product_id": 2,
+      "autentico": true
+    },
+    "candidatos": [
+      {
+        "fingerprint": "SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
+        "fid": "3322cbf1",
+        "user_id": 3,
+        "order_id": 1,
+        "product_id": 2,
+        "autentico": true
+      }
+    ],
+    "fuentes": {
+      "metadato": true,
+      "texto_paginas": 5,
+      "paginas": 5
+    }
+  },
+  "descarga_registrada": null
+}

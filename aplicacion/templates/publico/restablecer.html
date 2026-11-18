@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block titulo %}Nueva contraseña{% endblock %}
+{% block contenido %}
+<form class="tarjeta formulario" method="post" action="{{ url_for('publico.restablecer', token=token) }}">
+  <h1>Define tu nueva contraseña</h1>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Nueva contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password"></label>
+  <label>Confirmar <input type="password" name="password2" maxlength="128" required autocomplete="new-password"></label>
+  <button class="boton">Guardar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+# =====================================================================
+# EJEMPLO DE DISEÑO: gateway VPN (WireGuard) de la red administrativa
+# Archivo real: /etc/wireguard/wg0.conf en el gateway VPN
+#
+# Generar las claves en el propio equipo (nunca se suben al repositorio):
+#   wg genkey | tee servidor.key | wg pubkey > servidor.pub
+#   wg genkey | tee admin1.key   | wg pubkey > admin1.pub
+# =====================================================================
+[Interface]
+# Dirección del gateway dentro del túnel
+Address = 10.99.0.1/24
+ListenPort = 51820
+# Contenido de servidor.key (clave privada del gateway)
+PrivateKey = CONTENIDO_DE_servidor.key
+
+# Reenvío hacia la red administrativa 10.20.0.0/24 (donde escucha SSH)
+PostUp = sysctl -w net.ipv4.ip_forward=1
+PostUp = iptables -A FORWARD -i wg0 -d 10.20.0.10 -p tcp --dport 22 -j ACCEPT
+PostUp = iptables -A FORWARD -i wg0 -j DROP
+PostDown = iptables -D FORWARD -i wg0 -d 10.20.0.10 -p tcp --dport 22 -j ACCEPT
+PostDown = iptables -D FORWARD -i wg0 -j DROP
+
+[Peer]
+# Administrador 1 (laptop). Contenido de admin1.pub
+PublicKey = CONTENIDO_DE_admin1.pub
+AllowedIPs = 10.99.0.11/32

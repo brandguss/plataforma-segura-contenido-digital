@@ -1,0 +1,67 @@
+/* Estilos de la plataforma (sin dependencias externas: compatible con la CSP 'self') */
+:root {
+  --fondo: #f4f6f9;
+  --tarjeta: #ffffff;
+  --texto: #1d2733;
+  --suave: #5c6b7a;
+  --primario: #1f5fbf;
+  --primario-osc: #174a96;
+  --borde: #dde3ea;
+  --ok: #1e7b45;
+  --error: #b3261e;
+  --info: #2a5885;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.45; }
+main { max-width: 1150px; margin: 24px auto; padding: 0 16px; }
+footer { text-align: center; color: var(--suave); font-size: .85rem; padding: 24px; }
+h1 { font-size: 1.6rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+a { color: var(--primario); }
+code { background: #eef2f7; padding: 1px 5px; border-radius: 4px; font-size: .88em; word-break: break-all; }
+code.mini { font-size: .75em; }
+pre { background: #0f1720; color: #dfe7ef; padding: 14px; border-radius: 8px; overflow-x: auto; font-size: .82rem; }
+
+.barra { background: #13233a; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; flex-wrap: wrap; gap: 10px; }
+.barra a { color: #d8e4f5; text-decoration: none; margin-right: 14px; }
+.barra a:hover { color: #fff; }
+.barra .marca { font-weight: 700; color: #fff; font-size: 1.1rem; }
+.barra nav { display: flex; align-items: center; flex-wrap: wrap; }
+.quien { margin: 0 10px; color: #9fb4cf; font-size: .9rem; }
+.barra .enlace { color: #ffb4ab; }
+
+.tarjeta { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+.tarjeta h3 { margin-top: 0; }
+.centro { text-align: center; max-width: 520px; margin: 40px auto; }
+.rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.indicadores .tarjeta { display: flex; flex-direction: column; }
+.indicadores b { font-size: 1.8rem; }
+.indicadores small { color: var(--suave); text-transform: capitalize; }
+.precio { font-size: 1.3rem; font-weight: 700; color: var(--primario-osc); }
+.nota { color: var(--suave); font-size: .88rem; }
+
+.formulario { max-width: 560px; }
+.formulario label { display: block; margin: 12px 0; font-weight: 600; font-size: .92rem; }
+input, select, textarea { width: 100%; padding: 9px 10px; border: 1px solid var(--borde); border-radius: 6px; font: inherit; margin-top: 4px; background: #fff; }
+td input, td select, .filtros select { width: auto; margin: 0; }
+.filtros { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+
+.boton { display: inline-block; background: var(--primario); color: #fff; border: 0; border-radius: 6px; padding: 9px 16px; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; margin: 6px 6px 6px 0; }
+.boton:hover { background: var(--primario-osc); }
+.boton.secundario { background: #e6edf7; color: var(--primario-osc); }
+.enlace { background: none; border: 0; color: var(--primario); cursor: pointer; font: inherit; padding: 0 6px; text-decoration: underline; }
+.en-linea { display: inline; }
+
+table { width: 100%; border-collapse: collapse; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--borde); vertical-align: top; }
+th { background: #f0f3f8; font-size: .88rem; }
+table.compacta td, table.compacta th { padding: 6px 9px; font-size: .84rem; }
+
+.aviso { padding: 11px 14px; border-radius: 8px; margin-bottom: 14px; border: 1px solid; }
+.aviso.ok { background: #e7f5ec; border-color: #a6d8b8; color: var(--ok); }
+.aviso.error { background: #fdecea; border-color: #f2b8b5; color: var(--error); }
+.aviso.info { background: #e8f0fa; border-color: #b6cde8; color: var(--info); }
+
+.estado { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #eceff3; color: #44505c; }
+.estado.pagada, .estado.completada, .estado.activo, .estado.exito { background: #dff3e6; color: var(--ok); }
+.estado.rechazada, .estado.cancelada, .estado.inactivo, .estado.fallo, .estado.denegado { background: #fbe1df; color: var(--error); }
+.estado.pendiente { background: #fff1d6; color: #8a5a00; }

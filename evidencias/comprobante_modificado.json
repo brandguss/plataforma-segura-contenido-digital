@@ -1,0 +1,25 @@
+{
+  "contenido": {
+    "emisor": "Plataforma Segura de Contenido Digital",
+    "fecha": "2026-11-18T04:08:06Z",
+    "moneda": "MXN",
+    "numero_orden": 1,
+    "productos": [
+      {
+        "id": 1,
+        "nombre": "Manual de Python Básico",
+        "precio_centavos": 14900
+      }
+    ],
+    "referencia_transaccion": "SIM-39C8695FC3D35D12",
+    "total_centavos": 100,
+    "usuario": {
+      "email": "cliente1@demo.local",
+      "id": 3,
+      "nombre": "Carla Cliente"
+    }
+  },
+  "firma": "bLr9jfib5f1ZYg0cxS2lR6IkeWTCqal8Ve0SAUH1HoiiwUMCbt/4MbywIzUUaB1eIIvwaianwUHIlHPcQWs2xDOG+t4dCseG/1+rHlRr8VyyI1WkJyPijYpzhbtn5/iNtHRiCuRibBXotQwIR0+6ecc47ognVRs82TMFXIFZPYKw8HrgEe52COMvx84fO6bODosknIdExGRT4P3ownqHI1b6rVpaCr5mozmJQPyPJbEGaeE86j5sjq2sllCpmeerxNIr1XetXW8XXClTB5UioZe3uvTeENa7bCARtGm5PXFdSiTfgM0JT63R0I+bkG3UFl0n9+tIMlBh5ABnZmEHj1G/QxddrsmO4K9vjj6GMSuhNfIjpsYeoUh2jkDdBICzYv14NQdURiRRb09krcwCoDb7ZiOg9ETkJYxBqCQ1RuP9FUQz28QixrXGnEyB1GgdfydzNdtIXaAd02JPdgwblvjpqcrNytitz6aBTkdpmVpCPrMt2R987p0oqdjTwkGL",
+  "algoritmo": "RSA-PSS-SHA256",
+  "key_id": "b96432894e7a8cf2669b37c3d2b5163a"
+}

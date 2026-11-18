@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}Usuarios{% endblock %}
+{% block contenido %}
+<h1>Usuarios</h1>
+<p class="nota">Las contraseñas solo existen como hash Argon2id y no se muestran a ningún rol.</p>
+<table>
+  <tr><th>#</th><th>Correo</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Último acceso</th><th>Acciones</th></tr>
+  {% for u in usuarios %}
+  <tr>
+    <td>{{ u.id }}</td><td>{{ u.email }}</td><td>{{ u.name }}</td>
+    <td>
+      <form method="post" action="{{ url_for('admin.rol_usuario', user_id=u.id) }}" class="en-linea">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <select name="role" {% if u.id == usuario.id %}disabled{% endif %}>
+          {% for r in roles %}<option {% if r == u.role %}selected{% endif %}>{{ r }}</option>{% endfor %}
+        </select>
+        {% if u.id != usuario.id %}<button class="enlace">Asignar</button>{% endif %}
+      </form>
+    </td>
+    <td><span class="estado {{ u.status|lower }}">{{ u.status }}</span>{% if u.locked_until %}<br><small>bloqueo hasta {{ u.locked_until }}</small>{% endif %}</td>
+    <td>{{ u.last_login or '—' }}</td>
+    <td>
+      {% if u.id != usuario.id %}
+      <form method="post" action="{{ url_for('admin.estado_usuario', user_id=u.id) }}" class="en-linea">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="enlace">{{ 'Desactivar' if u.status == 'ACTIVO' else 'Activar' }}</button>
+      </form>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

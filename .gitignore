@@ -1,0 +1,33 @@
+# =====================================================================
+# NUNCA subir al repositorio: claves privadas y secretos
+# =====================================================================
+secretos/
+*.key
+*_privada.pem
+*.csr
+*.srl
+
+# Datos en ejecución (se regeneran con scripts/instalar.py)
+base_de_datos/*.db
+base_de_datos/*.db-*
+base_de_datos/errores.log*
+correo_simulado/
+respaldos/*
+!respaldos/.gitkeep
+!respaldos/README.md
+
+# Productos subidos desde la interfaz del OPERADOR (los de prueba sí se versionan)
+productos/prod_*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
