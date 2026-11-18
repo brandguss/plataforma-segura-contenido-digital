@@ -96,8 +96,9 @@ small, .nota { color: var(--texto-suave); font-size: .875rem; }
 .marca:hover { color: #fff; }
 .marca:hover .logo-svg { transform: rotate(-8deg) scale(1.08); }
 .logo-svg { width: 36px; height: 36px; flex: none; transition: transform .8s var(--suave); }
-.logo-fondo { fill: var(--acero); }
-.logo-huella path { stroke: var(--bruma); stroke-width: 4.2; stroke-linecap: round; }
+.logo-fondo { fill: none; stroke: var(--bruma); stroke-width: 6; }
+.logo-huella path { fill: none; stroke: var(--bruma); stroke-width: 6; stroke-linecap: round; }
+.logo-huella circle { fill: var(--marea); }
 .marca-nombre { font-size: 1.12rem; letter-spacing: -0.01em; }
 
 .navegacion { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem 1rem; }
@@ -112,8 +113,13 @@ small, .nota { color: var(--texto-suave); font-size: .875rem; }
 .navegacion a:hover::after, .navegacion a.activo::after { left: 0; right: 0; }
 .navegacion a.activo { color: #fff; }
 .quien { display: flex; align-items: center; gap: .55rem; margin-left: .3rem; padding-left: 1.1rem; border-left: 1px solid rgba(185, 229, 239, .18); font-size: .85rem; color: rgba(185, 229, 239, .7); }
-.rol { font-size: .72rem; font-weight: 600; padding: .15rem .6rem; border-radius: 999px; background: rgba(22, 125, 141, .22); color: var(--bruma); }
-.barra .enlace { color: #F5B7B0; font-size: .86rem; }
+.rol { font-size: .72rem; font-weight: 600; padding: .15rem .6rem; border-radius: 999px; border: 1px solid rgba(185, 229, 239, .5); color: var(--bruma); }
+.barra .enlace {   /* "Salir": botón claro sobre la barra oscura */
+  color: var(--noche); background: var(--bruma); font-size: .8rem; font-weight: 600;
+  padding: .32rem .85rem; border-radius: 999px; background-image: none;
+  transition: background-color .2s ease, transform .2s var(--rebote);
+}
+.barra .enlace:hover { color: var(--noche); background: #fff; transform: translateY(-1px); }
 
 /* ---------- Pie ---------- */
 footer { background: var(--noche); color: rgba(185, 229, 239, .7); font-size: .84rem; padding: 1.6rem 1.5rem; text-align: center; }
@@ -149,8 +155,8 @@ footer p { margin: 0 auto; }
 .boton.secundario:hover::after { transform: scaleY(1); }
 .boton.claro { background: var(--bruma); color: var(--noche); }
 .boton.claro:hover { background: #fff; color: var(--noche); }
-.boton.contorno-claro { background: transparent; color: var(--bruma); box-shadow: inset 0 0 0 1.5px rgba(185, 229, 239, .6); }
-.boton.contorno-claro:hover { background: rgba(185, 229, 239, .12); color: #fff; }
+.boton.contorno-claro { background: rgba(185, 229, 239, .1); color: #fff; box-shadow: inset 0 0 0 1.5px var(--bruma); }
+.boton.contorno-claro:hover { background: #fff; color: var(--noche); }
 .boton.peligro { background: var(--peligro); }
 
 /* Onda al hacer clic (la crea app.js) */
@@ -158,6 +164,7 @@ footer p { margin: 0 auto; }
   position: absolute; z-index: -1; border-radius: 50%; pointer-events: none;
   background: rgba(185, 229, 239, .55); transform: scale(0); animation: onda .6s ease-out forwards;
 }
+.boton.claro .onda, .boton.contorno-claro:hover .onda { background: rgba(22, 125, 141, .3); }
 @keyframes onda { to { transform: scale(4); opacity: 0; } }
 
 /* Estado de envío: el destello se repite mientras el servidor responde */
@@ -285,20 +292,13 @@ footer p { margin: 0 auto; }
 .documentos { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.6rem; }
 .documento {
   position: relative; display: flex; flex-direction: column;
-  background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
-  padding: 2.8rem 1.6rem 1.5rem; box-shadow: var(--sombra);
+  background: var(--superficie); border: 1px solid var(--linea); border-top: 4px solid var(--acero); border-radius: var(--radio);
+  padding: 1.6rem 1.6rem 1.5rem; box-shadow: var(--sombra);
   transition: transform .35s var(--suave), box-shadow .35s ease, border-color .35s ease;
 }
-.documento::before {   /* banda guilloché superior */
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 26px;
-  background: url("banda_guilloche.svg") repeat-x 0 0, var(--bruma);
-  border-bottom: 1px solid var(--linea); border-radius: var(--radio) var(--radio) 0 0;
-  transition: background-position 1.2s var(--suave);
-}
 .documento:hover { transform: translateY(-6px); box-shadow: var(--sombra-alta); border-color: var(--marea); }
-.documento:hover::before { background-position: -120px 0, 0 0; }
-.folio { position: absolute; top: 36px; right: 1.2rem; font-size: .8rem; font-weight: 600; color: var(--marea-oscura); }
-.documento h3 { font-size: 1.15rem; margin: .4rem 4rem .7rem 0; }
+.folio { position: absolute; top: 1.15rem; right: 1.2rem; font-size: .8rem; font-weight: 600; color: var(--marea-oscura); }
+.documento h3 { font-size: 1.15rem; margin: 0 4rem .7rem 0; }
 .documento p { color: var(--texto-suave); font-size: .92rem; flex: 1; }
 .precio, .documento .precio { font-family: var(--sans); font-weight: 700; font-size: 1.75rem; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--noche); margin: .3rem 0 1.1rem; }
 .precio small { font-size: .78rem; font-weight: 500; color: var(--texto-suave); margin-left: .35rem; letter-spacing: 0; }
@@ -316,7 +316,6 @@ footer p { margin: 0 auto; }
 .hoja {
   position: relative; aspect-ratio: 8.5 / 11; background: var(--superficie); border: 1px solid var(--linea-fuerte);
   border-radius: 6px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;
-  background-image: url("marca_agua.svg"); background-size: 120%; background-position: center 65%; background-repeat: no-repeat;
   box-shadow: 10px 10px 0 var(--bruma), var(--sombra-alta);
   animation: hoja-entra .8s var(--suave) both;
 }
@@ -324,9 +323,8 @@ footer p { margin: 0 auto; }
 .hoja .folio { top: 1rem; }
 .hoja-titulo { font-size: 1.3rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; border-top: 4px solid var(--noche); padding-top: .9rem; margin-top: 1.4rem; }
 .hoja-pie { font-size: .76rem; color: var(--texto-suave); border-top: 1px solid var(--linea); padding-top: .6rem; }
-.hoja .sello-svg { width: 74px; height: 74px; align-self: flex-end; }
-.hoja .sello-trazo { stroke: var(--marea); }
-.hoja .sello-anillo { stroke: var(--linea-fuerte); }
+.hoja .logo-svg { width: 72px; height: 72px; align-self: center; }
+.hoja .logo-fondo, .hoja .logo-huella path { stroke: var(--acero); }
 .datos-tecnicos { margin: 1.6rem 0; padding: 1.1rem 1.3rem; border: 1px solid var(--linea); border-left: 4px solid var(--marea); background: var(--superficie); border-radius: var(--radio-control); }
 .datos-tecnicos dt { font-size: .8rem; font-weight: 600; color: var(--texto-suave); }
 .datos-tecnicos dd { margin: .15rem 0 .8rem; }
@@ -334,12 +332,11 @@ footer p { margin: 0 auto; }
 
 /* ---------- Formularios ---------- */
 .credencial {
-  position: relative; max-width: 470px; margin: 1rem auto; padding: 3.2rem 2.25rem 2rem;
-  background: var(--superficie) url("marca_agua.svg") no-repeat right -90px bottom -90px / 340px;
-  border: 1px solid var(--linea); border-radius: var(--radio); box-shadow: var(--sombra-alta);
+  position: relative; max-width: 470px; margin: 1rem auto; padding: 2.4rem 2.25rem 2rem;
+  background: var(--superficie);
+  border: 1px solid var(--linea); border-top: 4px solid var(--acero); border-radius: var(--radio); box-shadow: var(--sombra-alta);
   animation: subir .6s var(--suave) both;
 }
-.credencial::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 26px; background: url("banda_guilloche.svg") repeat-x, var(--bruma); border-bottom: 1px solid var(--linea); border-radius: var(--radio) var(--radio) 0 0; }
 .credencial h1 { font-size: 1.8rem; margin-bottom: .35rem; }
 .credencial .entrada { color: var(--texto-suave); margin-bottom: 1.5rem; font-size: .95rem; }
 .formulario { max-width: 640px; }
@@ -408,11 +405,10 @@ table.compacta th, table.compacta td { padding: .55rem .8rem; font-size: .84rem;
 
 /* ---------- Comprobante con sello ---------- */
 .certificado {
-  position: relative; background: var(--superficie); border: 1px solid var(--linea-fuerte);
-  border-radius: var(--radio); padding: 3.4rem 2.25rem 2rem; margin-bottom: 1.5rem; overflow: hidden;
+  position: relative; background: var(--superficie); border: 1px solid var(--linea-fuerte); border-top: 4px solid var(--acero);
+  border-radius: var(--radio); padding: 2.4rem 2.25rem 2rem; margin-bottom: 1.5rem; overflow: hidden;
   box-shadow: 10px 10px 0 var(--bruma), var(--sombra-alta);
 }
-.certificado::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 26px; background: url("banda_guilloche.svg") repeat-x, var(--bruma); border-bottom: 1px solid var(--linea); }
 .certificado-encabezado { display: flex; justify-content: space-between; gap: 1.5rem; align-items: start; border-bottom: 2px solid var(--linea); padding-bottom: 1.25rem; margin-bottom: 1.25rem; }
 .certificado-encabezado h1 { margin: 0 0 .3rem; }
 .estado-firma { display: inline-flex; align-items: center; gap: .55rem; font-weight: 600; margin: .75rem 0 0; }
@@ -492,8 +488,8 @@ summary:hover { color: var(--marea-oscura); }
   main { padding: 1.75rem 1rem 3rem; }
   .portada-fondo { padding: 0 1rem; }
   .portada h1 { max-width: none; }
-  .credencial { padding: 2.9rem 1.25rem 1.5rem; }
-  .certificado { padding: 3rem 1.25rem 1.5rem; }
+  .credencial { padding: 2rem 1.25rem 1.5rem; }
+  .certificado { padding: 2rem 1.25rem 1.5rem; }
   .certificado-encabezado { flex-direction: column-reverse; }
   .certificado dl { grid-template-columns: 1fr; gap: .1rem; }
   .certificado dd { margin-bottom: .6rem; }
