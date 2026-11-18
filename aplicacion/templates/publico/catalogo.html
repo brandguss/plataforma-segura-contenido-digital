@@ -19,7 +19,13 @@
       <a class="boton contorno-claro" href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a></div>
     {% endif %}
   </div>
-  {% include "parciales/roseta.html" %}
+  {% include "parciales/escena_huella.html" %}
+</div>
+{% set capas = ['Argon2id para contraseñas', 'SHA-256 en cada archivo', 'Firma RSA-PSS en comprobantes', 'Respaldos AES-256-GCM', 'TLS 1.2 y 1.3', 'Fingerprint HMAC por comprador', 'Bitácora de solo inserción', 'Control de acceso por roles'] %}
+<div class="cinta" aria-hidden="true">
+  <div class="cinta-pista">
+    {% for vuelta in range(2) %}{% for c in capas %}<span>{{ c }}</span>{% endfor %}{% endfor %}
+  </div>
 </div>
 </section>
 {% endblock %}
