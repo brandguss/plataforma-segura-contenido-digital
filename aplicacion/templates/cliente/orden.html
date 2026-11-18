@@ -1,36 +1,48 @@
 {% extends "base.html" %}
 {% block titulo %}Orden {{ orden.id }}{% endblock %}
 {% block contenido %}
-<h1>Orden #{{ orden.id }} <span class="estado {{ orden.status|lower }}">{{ orden.status }}</span></h1>
+<div class="encabezado-pagina">
+  <h1>Orden Nº {{ orden.id }} <span class="estado {{ orden.status|lower }}">{{ orden.status }}</span></h1>
+</div>
+<div class="tabla-contenedor">
 <table>
-  <tr><th>Producto</th><th>Precio pagado</th><th>Descarga</th></tr>
+  <thead><tr><th>Producto</th><th class="importe">Precio pagado</th><th>Descarga</th></tr></thead>
+  <tbody>
   {% for i in items %}
   <tr>
-    <td>{{ i.name }}</td><td>{{ i.price|moneda }}</td>
+    <td>{{ i.name }}</td><td class="importe">{{ i.price|moneda }}</td>
     <td>
       {% if descargable %}
-        <a class="boton secundario" href="{{ url_for('cliente.descargar', orden_id=orden.id, producto_id=i.product_id) }}">Descargar copia personalizada</a>
-      {% else %}—{% endif %}
+        <a href="{{ url_for('cliente.descargar', orden_id=orden.id, producto_id=i.product_id) }}">Descargar mi copia</a>
+      {% else %}<span class="nota">Disponible al pagar</span>{% endif %}
     </td>
   </tr>
   {% endfor %}
-  <tr><th>Total</th><th>{{ orden.total|moneda }}</th><th></th></tr>
+  <tr class="total"><th>Total</th><td class="importe">{{ orden.total|moneda }}</td><td></td></tr>
+  </tbody>
 </table>
+</div>
 
-{% if orden.status in ('PENDIENTE', 'RECHAZADA') %}
-<a class="boton" href="{{ url_for('cliente.pagar', orden_id=orden.id) }}">Pagar (simulado)</a>
-{% endif %}
-{% if comprobante %}
-<a class="boton" href="{{ url_for('cliente.comprobante', orden_id=orden.id) }}">Ver comprobante firmado</a>
-{% endif %}
+<div class="acciones">
+  {% if orden.status in ('PENDIENTE', 'RECHAZADA') %}
+  <a class="boton" href="{{ url_for('cliente.pagar', orden_id=orden.id) }}">Pagar orden</a>
+  {% endif %}
+  {% if comprobante %}
+  <a class="boton" href="{{ url_for('cliente.comprobante', orden_id=orden.id) }}">Ver comprobante firmado</a>
+  {% endif %}
+</div>
 
-<h3>Pagos</h3>
-<table>
-  <tr><th>Referencia</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr>
+<h2>Pagos</h2>
+<div class="tabla-contenedor">
+<table class="compacta">
+  <thead><tr><th>Referencia</th><th class="importe">Monto</th><th>Resultado</th><th>Fecha</th></tr></thead>
+  <tbody>
   {% for p in pagos %}
-  <tr><td><code>{{ p.transaction_reference }}</code></td><td>{{ p.amount|moneda }}</td><td>{{ p.status }}</td><td>{{ p.created_at }}</td></tr>
+  <tr><td class="mono">{{ p.transaction_reference }}</td><td class="importe">{{ p.amount|moneda }}</td><td><span class="estado {{ p.status|lower }}">{{ p.status }}</span></td><td>{{ p.created_at }}</td></tr>
   {% else %}
-  <tr><td colspan="4">Sin pagos registrados.</td></tr>
+  <tr><td colspan="4">Esta orden todavía no tiene pagos.</td></tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 {% endblock %}

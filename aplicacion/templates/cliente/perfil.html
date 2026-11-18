@@ -2,24 +2,24 @@
 {% block titulo %}Mi perfil{% endblock %}
 {% block contenido %}
 <h1>Mi perfil</h1>
-<div class="rejilla">
-  <form class="tarjeta formulario" method="post">
-    <h3>Datos</h3>
+<div class="columnas">
+  <form class="panel" method="post">
+    <h2>Datos de la cuenta</h2>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="accion" value="datos">
-    <p>Correo: <b>{{ datos.email }}</b></p>
+    <p>Correo: <strong>{{ datos.email }}</strong></p>
     <label>Nombre <input name="name" value="{{ datos.name }}" maxlength="80" required></label>
-    <p class="nota">Cuenta creada: {{ datos.created_at }} · Último acceso: {{ datos.last_login or '—' }}</p>
-    <button class="boton">Guardar</button>
+    <p class="nota">Cuenta creada el {{ datos.created_at[:10] }}. Último acceso: {{ datos.last_login or 'sin registro' }}.</p>
+    <button class="boton">Guardar nombre</button>
   </form>
-  <form class="tarjeta formulario" method="post">
-    <h3>Cambiar contraseña</h3>
+  <form class="panel" method="post">
+    <h2>Cambiar contraseña</h2>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="accion" value="password">
     <label>Contraseña actual <input type="password" name="actual" required autocomplete="current-password"></label>
     <label>Nueva contraseña <input type="password" name="password" required autocomplete="new-password"></label>
-    <label>Confirmar <input type="password" name="password2" required autocomplete="new-password"></label>
-    <button class="boton">Cambiar</button>
+    <label>Confirmar contraseña <input type="password" name="password2" required autocomplete="new-password"></label>
+    <button class="boton">Cambiar contraseña</button>
   </form>
 </div>
 {% endblock %}

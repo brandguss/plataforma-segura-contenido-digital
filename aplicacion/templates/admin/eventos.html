@@ -3,22 +3,33 @@
 {% block contenido %}
 <h1>Eventos de seguridad</h1>
 <form method="get" class="filtros">
-  <select name="evento"><option value="">Todos los eventos</option>
-    {% for t in tipos %}<option {% if t == filtro_evento %}selected{% endif %}>{{ t }}</option>{% endfor %}
-  </select>
-  <select name="resultado"><option value="">Todos los resultados</option>
-    {% for r in ['EXITO','FALLO','DENEGADO'] %}<option {% if r == filtro_resultado %}selected{% endif %}>{{ r }}</option>{% endfor %}
-  </select>
+  <label>Evento
+    <select name="evento"><option value="">Todos</option>
+      {% for t in tipos %}<option {% if t == filtro_evento %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Resultado
+    <select name="resultado"><option value="">Todos</option>
+      {% for r in ['EXITO','FALLO','DENEGADO'] %}<option value="{{ r }}" {% if r == filtro_resultado %}selected{% endif %}>{{ r|capitalize }}</option>{% endfor %}
+    </select>
+  </label>
   <button class="boton secundario">Filtrar</button>
 </form>
-<p class="nota">Bitácora de solo inserción: la base de datos bloquea cualquier UPDATE o DELETE sobre esta tabla.</p>
+<p class="nota">Bitácora de solo inserción: la base de datos rechaza cualquier modificación o borrado de estos registros. Fechas en UTC.</p>
+<div class="tabla-contenedor">
 <table class="compacta">
-  <tr><th>#</th><th>Fecha (UTC)</th><th>Usuario</th><th>Evento</th><th>Resultado</th><th>Origen</th><th>Detalles</th></tr>
+  <thead><tr><th>#</th><th>Fecha (UTC)</th><th>Usuario</th><th>Evento</th><th>Resultado</th><th>Origen</th><th>Detalles</th></tr></thead>
+  <tbody>
   {% for e in eventos %}
   <tr>
-    <td>{{ e.id }}</td><td>{{ e.created_at }}</td><td>{{ e.email or '—' }}</td><td><b>{{ e.event }}</b></td>
+    <td>{{ e.id }}</td><td>{{ e.created_at|replace('T', ' ')|replace('Z', '') }}</td><td>{{ e.email or 'anónimo' }}</td>
+    <td class="codigo-evento">{{ e.event }}</td>
     <td><span class="estado {{ e.result|lower }}">{{ e.result }}</span></td><td>{{ e.source }}</td><td>{{ e.details or '' }}</td>
   </tr>
+  {% else %}
+  <tr><td colspan="7">No hay eventos con esos filtros.</td></tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 {% endblock %}

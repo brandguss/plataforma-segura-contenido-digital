@@ -1,26 +1,38 @@
 {% extends "base.html" %}
 {% block titulo %}Orden {{ orden.id }}{% endblock %}
 {% block contenido %}
-<h1>Orden #{{ orden.id }} <span class="estado {{ orden.status|lower }}">{{ orden.status }}</span></h1>
-<p>Cliente: {{ orden.name }} ({{ orden.email }}) · Creada: {{ orden.created_at }}</p>
+<p><a href="{{ url_for('operador.ordenes') }}">Volver a órdenes</a></p>
+<div class="encabezado-pagina">
+  <h1>Orden Nº {{ orden.id }} <span class="estado {{ orden.status|lower }}">{{ orden.status }}</span></h1>
+</div>
+<p>Cliente: <strong>{{ orden.name }}</strong> ({{ orden.email }}). Creada el {{ orden.created_at[:10] }}.</p>
+<div class="tabla-contenedor">
 <table>
-  <tr><th>Producto</th><th>Precio registrado</th></tr>
-  {% for i in items %}<tr><td>{{ i.name }}</td><td>{{ i.price|moneda }}</td></tr>{% endfor %}
-  <tr><th>Total</th><th>{{ orden.total|moneda }}</th></tr>
+  <thead><tr><th>Producto</th><th class="importe">Precio registrado</th></tr></thead>
+  <tbody>
+  {% for i in items %}<tr><td>{{ i.name }}</td><td class="importe">{{ i.price|moneda }}</td></tr>{% endfor %}
+  <tr class="total"><th>Total</th><td class="importe">{{ orden.total|moneda }}</td></tr>
+  </tbody>
 </table>
-<h3>Pagos</h3>
-<table>
-  <tr><th>Referencia</th><th>Monto</th><th>Estado</th><th>Fecha</th></tr>
-  {% for p in pagos %}<tr><td><code>{{ p.transaction_reference }}</code></td><td>{{ p.amount|moneda }}</td><td>{{ p.status }}</td><td>{{ p.created_at }}</td></tr>
+</div>
+<h2>Pagos</h2>
+<div class="tabla-contenedor">
+<table class="compacta">
+  <thead><tr><th>Referencia</th><th class="importe">Monto</th><th>Resultado</th><th>Fecha</th></tr></thead>
+  <tbody>
+  {% for p in pagos %}<tr><td class="mono">{{ p.transaction_reference }}</td><td class="importe">{{ p.amount|moneda }}</td><td><span class="estado {{ p.status|lower }}">{{ p.status }}</span></td><td>{{ p.created_at }}</td></tr>
   {% else %}<tr><td colspan="4">Sin pagos.</td></tr>{% endfor %}
+  </tbody>
 </table>
+</div>
 {% if transiciones %}
-<form class="tarjeta formulario" method="post">
+<form class="panel formulario" method="post">
+  <h2>Actualizar estado</h2>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <label>Actualizar estado
-    <select name="status">{% for t in transiciones %}<option>{{ t }}</option>{% endfor %}</select>
+  <label>Nuevo estado
+    <select name="status">{% for t in transiciones %}<option value="{{ t }}">{{ t|capitalize }}</option>{% endfor %}</select>
   </label>
-  <button class="boton">Aplicar</button>
+  <button class="boton">Actualizar estado</button>
 </form>
 {% endif %}
 {% endblock %}

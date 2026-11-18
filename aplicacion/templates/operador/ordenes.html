@@ -2,16 +2,20 @@
 {% block titulo %}Órdenes{% endblock %}
 {% block contenido %}
 <h1>Órdenes</h1>
+<div class="tabla-contenedor">
 <table>
-  <tr><th>#</th><th>Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th><th></th></tr>
+  <thead><tr><th>Orden</th><th>Cliente</th><th>Fecha</th><th class="importe">Total</th><th>Estado</th><th></th></tr></thead>
+  <tbody>
   {% for o in ordenes %}
   <tr>
-    <td>{{ o.id }}</td><td>{{ o.email }}</td><td>{{ o.created_at }}</td><td>{{ o.total|moneda }}</td>
+    <td>Nº {{ o.id }}</td><td>{{ o.email }}</td><td>{{ o.created_at[:10] }}</td><td class="importe">{{ o.total|moneda }}</td>
     <td><span class="estado {{ o.status|lower }}">{{ o.status }}</span></td>
     <td><a href="{{ url_for('operador.orden', orden_id=o.id) }}">Procesar</a></td>
   </tr>
   {% else %}
-  <tr><td colspan="6">No hay órdenes.</td></tr>
+  <tr><td colspan="6">Todavía no hay órdenes.</td></tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 {% endblock %}

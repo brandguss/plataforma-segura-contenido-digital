@@ -1,15 +1,16 @@
 {% extends "base.html" %}
-{% block titulo %}{{ 'Editar' if producto else 'Nuevo' }} producto{% endblock %}
+{% block titulo %}{{ 'Editar' if producto else 'Registrar' }} producto{% endblock %}
 {% block contenido %}
-<form class="tarjeta formulario" method="post" enctype="multipart/form-data">
-  <h1>{{ 'Editar producto #' ~ producto.id if producto else 'Nuevo producto' }}</h1>
+<p><a href="{{ url_for('operador.productos') }}">Volver a productos</a></p>
+<form class="panel formulario" method="post" enctype="multipart/form-data">
+  <h1>{{ 'Editar producto Nº %04d'|format(producto.id) if producto else 'Registrar producto' }}</h1>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <label>Nombre <input name="name" maxlength="120" required value="{{ producto.name if producto else '' }}"></label>
   <label>Descripción <textarea name="description" rows="5" maxlength="2000" required>{{ producto.description if producto else '' }}</textarea></label>
-  <label>Precio (MXN) <input name="price" required pattern="\d{1,6}(\.\d{1,2})?" value="{{ '%.2f'|format(producto.price / 100) if producto else '' }}"></label>
-  <label>Archivo PDF {% if producto %}(opcional, reemplaza el actual){% endif %}
+  <label>Precio en MXN <input name="price" required inputmode="decimal" pattern="\d{1,6}(\.\d{1,2})?" placeholder="179.00" value="{{ '%.2f'|format(producto.price / 100) if producto else '' }}"></label>
+  <label>Archivo PDF{% if producto %} (opcional: reemplaza el actual){% endif %}
     <input type="file" name="archivo" accept="application/pdf" {% if not producto %}required{% endif %}></label>
-  <p class="nota">Máximo 20 MB. Se calcula y registra su SHA-256 para verificar integridad.</p>
-  <button class="boton">Guardar</button>
+  <p class="nota">Máximo 20 MB. Al guardar se calcula y registra el SHA-256 del archivo.</p>
+  <button class="boton">{{ 'Guardar cambios' if producto else 'Registrar producto' }}</button>
 </form>
 {% endblock %}

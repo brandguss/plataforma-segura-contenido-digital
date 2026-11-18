@@ -2,23 +2,25 @@
 {% block titulo %}Usuarios{% endblock %}
 {% block contenido %}
 <h1>Usuarios</h1>
-<p class="nota">Las contraseñas solo existen como hash Argon2id y no se muestran a ningún rol.</p>
+<p class="nota">Las contraseñas solo existen como hash Argon2id y ningún rol puede verlas. Un cambio de rol o una desactivación cierra las sesiones del usuario.</p>
+<div class="tabla-contenedor">
 <table>
-  <tr><th>#</th><th>Correo</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Último acceso</th><th>Acciones</th></tr>
+  <thead><tr><th>#</th><th>Correo</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Último acceso</th><th>Cuenta</th></tr></thead>
+  <tbody>
   {% for u in usuarios %}
   <tr>
     <td>{{ u.id }}</td><td>{{ u.email }}</td><td>{{ u.name }}</td>
     <td>
       <form method="post" action="{{ url_for('admin.rol_usuario', user_id=u.id) }}" class="en-linea">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <select name="role" {% if u.id == usuario.id %}disabled{% endif %}>
-          {% for r in roles %}<option {% if r == u.role %}selected{% endif %}>{{ r }}</option>{% endfor %}
+        <select name="role" aria-label="Rol de {{ u.email }}" {% if u.id == usuario.id %}disabled{% endif %}>
+          {% for r in roles %}<option value="{{ r }}" {% if r == u.role %}selected{% endif %}>{{ r|capitalize }}</option>{% endfor %}
         </select>
-        {% if u.id != usuario.id %}<button class="enlace">Asignar</button>{% endif %}
+        {% if u.id != usuario.id %}<button class="enlace">Asignar</button>{% else %}<small>tu cuenta</small>{% endif %}
       </form>
     </td>
-    <td><span class="estado {{ u.status|lower }}">{{ u.status }}</span>{% if u.locked_until %}<br><small>bloqueo hasta {{ u.locked_until }}</small>{% endif %}</td>
-    <td>{{ u.last_login or '—' }}</td>
+    <td><span class="estado {{ u.status|lower }}">{{ u.status }}</span>{% if u.locked_until %}<br><small>Bloqueada hasta {{ u.locked_until }}</small>{% endif %}</td>
+    <td>{{ u.last_login or 'Sin accesos' }}</td>
     <td>
       {% if u.id != usuario.id %}
       <form method="post" action="{{ url_for('admin.estado_usuario', user_id=u.id) }}" class="en-linea">
@@ -29,5 +31,7 @@
     </td>
   </tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 {% endblock %}

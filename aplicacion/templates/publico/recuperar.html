@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block titulo %}Recuperar contraseña{% endblock %}
 {% block contenido %}
-<form class="tarjeta formulario" method="post">
+<form class="credencial" method="post">
   <h1>Recuperar contraseña</h1>
+  <p class="entrada">Te enviaremos un enlace válido por 15 minutos y de un solo uso.</p>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <label>Correo registrado <input type="email" name="email" maxlength="254" required></label>
-  <p class="nota">Se generará un enlace temporal de un solo uso (correo simulado en la carpeta <code>correo_simulado/</code>).</p>
+  <label>Correo registrado <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
   <button class="boton">Enviar enlace</button>
+  <p class="nota">El correo es simulado: el enlace se guarda en la carpeta <code>correo_simulado/</code> del servidor.</p>
 </form>
 {% endblock %}

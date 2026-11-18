@@ -1,24 +1,40 @@
 {% extends "base.html" %}
-{% block titulo %}Comprobante orden {{ orden_id }}{% endblock %}
+{% block titulo %}Comprobante de la orden {{ orden_id }}{% endblock %}
 {% block contenido %}
-<h1>Comprobante · Orden #{{ orden_id }}</h1>
-<div class="aviso {{ 'ok' if valido else 'error' }}">
-  Firma digital {{ 'VÁLIDA' if valido else 'INVÁLIDA' }} ({{ c.algoritmo }}, clave {{ c.key_id }})
-</div>
-<div class="tarjeta">
-  <p><b>Emisor:</b> {{ c.contenido.emisor }}</p>
-  <p><b>Usuario:</b> {{ c.contenido.usuario.nombre }} ({{ c.contenido.usuario.email }})</p>
-  <p><b>Fecha:</b> {{ c.contenido.fecha }}</p>
-  <p><b>Referencia:</b> <code>{{ c.contenido.referencia_transaccion }}</code></p>
+<article class="certificado">
+  <div class="certificado-encabezado">
+    <div>
+      <h1>Comprobante de compra</h1>
+      <p class="nota">Orden Nº {{ orden_id }}. Emitido por {{ c.contenido.emisor }}.</p>
+      <p class="estado-firma {{ 'ok' if valido else 'error' }}">Firma digital {{ 'VÁLIDA' if valido else 'INVÁLIDA' }}: {{ 'el contenido no ha cambiado desde que se emitió' if valido else 'el contenido fue alterado' }}</p>
+    </div>
+    <div class="sello {{ 'valido' if valido else 'invalido' }}" aria-hidden="true">
+      {% include "parciales/sello.html" %}
+      <span class="sello-texto">{{ 'Firmado' if valido else 'Anulado' }}<small>RSA-PSS</small></span>
+    </div>
+  </div>
+  <dl>
+    <dt>Cliente</dt><dd>{{ c.contenido.usuario.nombre }} ({{ c.contenido.usuario.email }})</dd>
+    <dt>Fecha</dt><dd>{{ c.contenido.fecha }}</dd>
+    <dt>Referencia</dt><dd class="mono">{{ c.contenido.referencia_transaccion }}</dd>
+    <dt>Algoritmo</dt><dd>{{ c.algoritmo }}</dd>
+    <dt>Clave de firma</dt><dd class="mono">{{ c.key_id }}</dd>
+  </dl>
+  <div class="tabla-contenedor">
   <table>
-    <tr><th>Producto</th><th>Precio</th></tr>
+    <thead><tr><th>Producto</th><th class="importe">Precio</th></tr></thead>
+    <tbody>
     {% for p in c.contenido.productos %}
-    <tr><td>{{ p.nombre }}</td><td>{{ p.precio_centavos|moneda }}</td></tr>
+    <tr><td>{{ p.nombre }}</td><td class="importe">{{ p.precio_centavos|moneda }}</td></tr>
     {% endfor %}
-    <tr><th>Total</th><th>{{ c.contenido.total_centavos|moneda }}</th></tr>
+    <tr class="total"><th>Total</th><td class="importe">{{ c.contenido.total_centavos|moneda }}</td></tr>
+    </tbody>
   </table>
+  </div>
+</article>
+<div class="acciones">
+  <a class="boton" href="{{ url_for('cliente.comprobante_json', orden_id=orden_id) }}">Descargar comprobante (.json)</a>
+  <a class="boton secundario" href="{{ url_for('cliente.verificar') }}">Verificar un comprobante</a>
 </div>
-<a class="boton" href="{{ url_for('cliente.comprobante_json', orden_id=orden_id) }}">Descargar comprobante (.json)</a>
-<a class="boton secundario" href="{{ url_for('cliente.verificar') }}">Verificar un comprobante</a>
-<details><summary>Ver JSON firmado</summary><pre>{{ json_texto }}</pre></details>
+<details><summary>Ver el JSON firmado</summary><pre>{{ json_texto }}</pre></details>
 {% endblock %}

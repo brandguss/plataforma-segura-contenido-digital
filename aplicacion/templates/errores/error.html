@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block titulo %}Error {{ codigo }}{% endblock %}
 {% block contenido %}
-<div class="tarjeta centro">
-  <h1>Error {{ codigo }}</h1>
-  <p>{{ mensaje }}</p>
+<section class="error-pagina">
+  <p class="error-codigo {{ 'denegado' if codigo == 403 }}">{{ codigo }}</p>
+  <h1>{{ mensaje }}</h1>
+  <p>{% if codigo == 403 %}Tu cuenta no tiene permiso para esta sección. El intento quedó registrado en la bitácora de seguridad.{% elif codigo == 404 %}Revisa la dirección o vuelve al catálogo.{% else %}Vuelve al catálogo e inténtalo de nuevo.{% endif %}</p>
   <a class="boton" href="{{ url_for('publico.catalogo') }}">Volver al catálogo</a>
-</div>
+</section>
 {% endblock %}

@@ -3,50 +3,62 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block titulo %}Plataforma Segura{% endblock %} · Contenido Digital</title>
+  <title>{% block titulo %}Catálogo{% endblock %} | Plataforma Segura</title>
+  <link rel="preload" href="{{ url_for('static', filename='fuentes/bodoni-moda-latin-600-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='fuentes/public-sans-latin-400-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 <body>
+{% set ep = request.endpoint or '' %}
 <header class="barra">
-  <a class="marca" href="{{ url_for('publico.catalogo') }}">🔒 Plataforma Segura</a>
-  <nav>
-    <a href="{{ url_for('publico.catalogo') }}">Catálogo</a>
-    {% if usuario %}
-      {% if usuario.role == 'CLIENTE' %}
-        <a href="{{ url_for('cliente.carrito') }}">Carrito</a>
-        <a href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a>
-        <a href="{{ url_for('cliente.verificar') }}">Verificar firma</a>
-        <a href="{{ url_for('cliente.perfil') }}">Perfil</a>
-      {% elif usuario.role == 'OPERADOR' %}
-        <a href="{{ url_for('operador.productos') }}">Productos</a>
-        <a href="{{ url_for('operador.ordenes') }}">Órdenes</a>
-      {% elif usuario.role == 'ADMINISTRADOR' %}
-        <a href="{{ url_for('admin.usuarios') }}">Usuarios</a>
-        <a href="{{ url_for('admin.sesiones') }}">Sesiones</a>
-        <a href="{{ url_for('admin.eventos') }}">Eventos</a>
-        <a href="{{ url_for('admin.operaciones') }}">Operaciones</a>
-        <a href="{{ url_for('admin.detectar_fingerprint') }}">Fingerprint</a>
-        <a href="{{ url_for('admin.configuracion') }}">Configuración</a>
+  <div class="barra-interior">
+    <a class="marca" href="{{ url_for('publico.catalogo') }}">
+      {% include "parciales/logo.html" %}
+      <span class="marca-nombre">Plataforma Segura</span>
+    </a>
+    <nav class="navegacion" aria-label="Principal">
+      <a href="{{ url_for('publico.catalogo') }}" class="{{ 'activo' if ep in ('publico.catalogo', 'publico.producto') }}">Catálogo</a>
+      {% if usuario %}
+        {% if usuario.role == 'CLIENTE' %}
+          <a href="{{ url_for('cliente.carrito') }}" class="{{ 'activo' if ep == 'cliente.carrito' }}">Carrito</a>
+          <a href="{{ url_for('cliente.ordenes') }}" class="{{ 'activo' if ep in ('cliente.ordenes', 'cliente.orden', 'cliente.pagar', 'cliente.comprobante') }}">Mis órdenes</a>
+          <a href="{{ url_for('cliente.verificar') }}" class="{{ 'activo' if ep == 'cliente.verificar' }}">Verificar firma</a>
+          <a href="{{ url_for('cliente.perfil') }}" class="{{ 'activo' if ep == 'cliente.perfil' }}">Perfil</a>
+        {% elif usuario.role == 'OPERADOR' %}
+          <a href="{{ url_for('operador.productos') }}" class="{{ 'activo' if ep.startswith('operador.') and 'producto' in ep }}">Productos</a>
+          <a href="{{ url_for('operador.ordenes') }}" class="{{ 'activo' if ep in ('operador.ordenes', 'operador.orden') }}">Órdenes</a>
+        {% elif usuario.role == 'ADMINISTRADOR' %}
+          <a href="{{ url_for('admin.usuarios') }}" class="{{ 'activo' if ep == 'admin.usuarios' }}">Usuarios</a>
+          <a href="{{ url_for('admin.sesiones') }}" class="{{ 'activo' if ep == 'admin.sesiones' }}">Sesiones</a>
+          <a href="{{ url_for('admin.eventos') }}" class="{{ 'activo' if ep == 'admin.eventos' }}">Eventos</a>
+          <a href="{{ url_for('admin.operaciones') }}" class="{{ 'activo' if ep == 'admin.operaciones' }}">Operaciones</a>
+          <a href="{{ url_for('admin.detectar_fingerprint') }}" class="{{ 'activo' if ep == 'admin.detectar_fingerprint' }}">Fingerprint</a>
+          <a href="{{ url_for('admin.configuracion') }}" class="{{ 'activo' if ep == 'admin.configuracion' }}">Configuración</a>
+        {% endif %}
+        <span class="quien">
+          {{ usuario.name }} <span class="rol">{{ usuario.role|capitalize }}</span>
+          <form method="post" action="{{ url_for('publico.logout') }}" class="en-linea">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="enlace">Salir</button>
+          </form>
+        </span>
+      {% else %}
+        <a href="{{ url_for('publico.login') }}" class="{{ 'activo' if ep == 'publico.login' }}">Iniciar sesión</a>
+        <a href="{{ url_for('publico.registro') }}" class="{{ 'activo' if ep == 'publico.registro' }}">Crear cuenta</a>
       {% endif %}
-      <span class="quien">{{ usuario.name }} · <b>{{ usuario.role }}</b></span>
-      <form method="post" action="{{ url_for('publico.logout') }}" class="en-linea">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <button class="enlace">Salir</button>
-      </form>
-    {% else %}
-      <a href="{{ url_for('publico.login') }}">Iniciar sesión</a>
-      <a href="{{ url_for('publico.registro') }}">Registrarse</a>
-    {% endif %}
-  </nav>
+    </nav>
+  </div>
 </header>
-<main>
+<main id="contenido">
   {% with mensajes = get_flashed_messages(with_categories=true) %}
     {% for categoria, mensaje in mensajes %}
-      <div class="aviso {{ categoria }}">{{ mensaje }}</div>
+      <div class="aviso {{ categoria }}" role="status">{{ mensaje }}</div>
     {% endfor %}
   {% endwith %}
   {% block contenido %}{% endblock %}
 </main>
-<footer>Proyecto académico · Pagos simulados · Sin datos reales</footer>
+<footer>
+  <p>Proyecto académico de seguridad informática. Los pagos son simulados y todos los datos son ficticios.</p>
+</footer>
 </body>
 </html>

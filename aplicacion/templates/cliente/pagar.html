@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% block titulo %}Pago simulado{% endblock %}
+{% block titulo %}Pagar orden {{ orden.id }}{% endblock %}
 {% block contenido %}
-<form class="tarjeta formulario" method="post">
-  <h1>Pago simulado · Orden #{{ orden.id }}</h1>
+<form class="credencial" method="post">
+  <h1>Pagar orden Nº {{ orden.id }}</h1>
+  <p class="precio">{{ '{:,.2f}'.format(orden.total / 100) }}<small>MXN</small></p>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <p class="precio">{{ orden.total|moneda }}</p>
   <div class="aviso info">
-    No uses datos reales. Tarjetas de prueba:<br>
-    <code>4242 4242 4242 4242</code> → aprobado · <code>4000 0000 0000 0002</code> → rechazado<br>
-    El número no se almacena: solo se guarda el resultado y una referencia de transacción.
+    Pago simulado. No escribas datos reales; usa una tarjeta de prueba:
+    <div class="tarjetas-prueba">
+      <span><code>4242 4242 4242 4242</code> pago aprobado</span>
+      <span><code>4000 0000 0000 0002</code> pago rechazado</span>
+    </div>
   </div>
-  <label>Tarjeta de prueba <input name="tarjeta_prueba" inputmode="numeric" maxlength="23" autocomplete="off" required></label>
-  <button class="boton">Pagar</button>
+  <label>Número de tarjeta de prueba <input name="tarjeta_prueba" inputmode="numeric" maxlength="23" autocomplete="off" required></label>
+  <button class="boton">Pagar {{ orden.total|moneda }}</button>
+  <p class="nota">El número no se guarda. Solo se registra el resultado y una referencia de transacción.</p>
 </form>
 {% endblock %}

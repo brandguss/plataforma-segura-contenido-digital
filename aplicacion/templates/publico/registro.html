@@ -1,14 +1,16 @@
 {% extends "base.html" %}
-{% block titulo %}Registro{% endblock %}
+{% block titulo %}Crear cuenta{% endblock %}
 {% block contenido %}
-<form class="tarjeta formulario" method="post">
+<form class="credencial" method="post">
   <h1>Crear cuenta</h1>
+  <p class="entrada">Usa datos de prueba: este es un proyecto académico.</p>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <label>Nombre <input name="name" maxlength="80" required></label>
-  <label>Correo <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
-  <label>Contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password"></label>
+  <label>Nombre <input name="name" maxlength="80" required autocomplete="name"></label>
+  <label>Correo electrónico <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
+  <label>Contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password" aria-describedby="regla-pass"></label>
   <label>Confirmar contraseña <input type="password" name="password2" maxlength="128" required autocomplete="new-password"></label>
-  <p class="nota">Mínimo 10 caracteres combinando letras y números.</p>
-  <button class="boton">Registrarme</button>
+  <p class="nota" id="regla-pass">Mínimo 10 caracteres, combinando letras y números.</p>
+  <button class="boton">Crear cuenta</button>
+  <div class="pie-formulario"><p>¿Ya tienes cuenta? <a href="{{ url_for('publico.login') }}">Iniciar sesión</a></p></div>
 </form>
 {% endblock %}

@@ -1,19 +1,27 @@
 {% extends "base.html" %}
 {% block titulo %}Verificar firma{% endblock %}
 {% block contenido %}
-<h1>Verificar firma digital de un comprobante</h1>
+<h1>Verificar la firma de un comprobante</h1>
+<p>Sube el archivo <code>.json</code> que descargaste o pega su contenido. La verificación usa la clave pública de la plataforma.</p>
+
 {% if resultado == 'VALIDA' %}
-  <div class="aviso ok">Firma VÁLIDA: el comprobante no fue modificado y lo emitió la plataforma.</div>
+<div class="resultado-verificacion" role="status">
+  <div class="sello valido" aria-hidden="true">{% include "parciales/sello.html" %}<span class="sello-texto">Firmado<small>RSA-PSS</small></span></div>
+  <p><strong>Firma VÁLIDA</strong>El comprobante no fue modificado y lo emitió esta plataforma.</p>
+</div>
 {% elif resultado == 'INVALIDA' %}
-  <div class="aviso error">Firma INVÁLIDA: el comprobante fue alterado o no lo emitió esta plataforma.</div>
+<div class="resultado-verificacion" role="status">
+  <div class="sello invalido" aria-hidden="true">{% include "parciales/sello.html" %}<span class="sello-texto">Anulado<small>Sin validez</small></span></div>
+  <p><strong>Firma INVÁLIDA</strong>El comprobante fue alterado después de firmarse, o no lo emitió esta plataforma.</p>
+</div>
 {% elif resultado == 'FORMATO' %}
-  <div class="aviso error">El contenido no es un comprobante JSON válido.</div>
+<div class="aviso error" role="status">El contenido no es un comprobante JSON. Sube el archivo tal como lo descargaste.</div>
 {% endif %}
-<form class="tarjeta formulario" method="post" enctype="multipart/form-data">
+
+<form class="panel formulario" method="post" enctype="multipart/form-data">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <label>Archivo .json del comprobante <input type="file" name="archivo" accept=".json,application/json"></label>
-  <label>…o pega el JSON <textarea name="comprobante" rows="12">{{ texto }}</textarea></label>
-  <button class="boton">Verificar</button>
-  <p class="nota">La verificación usa la clave pública publicada en <code>claves_publicas/firma_publica.pem</code>.</p>
+  <label>Archivo del comprobante (.json) <input type="file" name="archivo" accept=".json,application/json"></label>
+  <label>O pega el contenido <textarea name="comprobante" rows="10">{{ texto }}</textarea></label>
+  <button class="boton">Verificar firma</button>
 </form>
 {% endblock %}

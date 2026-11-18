@@ -1,17 +1,45 @@
 {% extends "base.html" %}
 {% block titulo %}Catálogo{% endblock %}
 {% block contenido %}
-<h1>Catálogo de productos digitales</h1>
-<div class="rejilla">
-  {% for p in productos %}
-  <article class="tarjeta">
-    <h3>{{ p.name }}</h3>
-    <p>{{ p.description[:140] }}{% if p.description|length > 140 %}…{% endif %}</p>
-    <p class="precio">{{ p.price|moneda }}</p>
-    <a class="boton secundario" href="{{ url_for('publico.producto', producto_id=p.id) }}">Ver detalle</a>
-  </article>
+<section class="portada">
+  <div>
+    <h1>Material de estudio con tu nombre por dentro</h1>
+    <p class="entrada">Cada PDF que compras se genera para ti al momento de descargarlo. Lleva un identificador invisible ligado a tu cuenta y a tu orden.</p>
+    <ul class="garantias">
+      <li>Comprobante de compra con firma digital que puedes verificar</li>
+      <li>Archivo original comprobado con SHA-256 antes de cada descarga</li>
+      <li>Conexión cifrada con TLS de principio a fin</li>
+    </ul>
+    {% if not usuario %}
+      <a class="boton" href="{{ url_for('publico.registro') }}">Crear cuenta</a>
+      <a class="boton secundario" href="{{ url_for('publico.login') }}">Iniciar sesión</a>
+    {% elif usuario.role == 'CLIENTE' %}
+      <a class="boton" href="#catalogo">Ver productos</a>
+      <a class="boton secundario" href="{{ url_for('cliente.ordenes') }}">Mis órdenes</a>
+    {% endif %}
+  </div>
+  {% include "parciales/roseta.html" %}
+</section>
+
+<section id="catalogo">
+  <div class="seccion-titulo">
+    <h2>Catálogo</h2>
+    <p class="nota">{{ productos|length }} {{ 'documento disponible' if productos|length == 1 else 'documentos disponibles' }}</p>
+  </div>
+  {% if productos %}
+  <div class="documentos">
+    {% for p in productos %}
+    <article class="documento">
+      <span class="folio">Nº {{ '%04d'|format(p.id) }}</span>
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.description[:150] }}{% if p.description|length > 150 %}…{% endif %}</p>
+      <p class="precio">{{ '{:,.2f}'.format(p.price / 100) }}<small>MXN</small></p>
+      <a class="boton secundario" href="{{ url_for('publico.producto', producto_id=p.id) }}">Ver detalle</a>
+    </article>
+    {% endfor %}
+  </div>
   {% else %}
-  <p>No hay productos disponibles.</p>
-  {% endfor %}
-</div>
+  <div class="vacio"><p>Todavía no hay productos publicados.</p></div>
+  {% endif %}
+</section>
 {% endblock %}

@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block titulo %}Productos{% endblock %}
 {% block contenido %}
-<h1>Productos <a class="boton" href="{{ url_for('operador.nuevo_producto') }}">+ Nuevo</a></h1>
+<div class="encabezado-pagina">
+  <h1>Productos</h1>
+  <a class="boton" href="{{ url_for('operador.nuevo_producto') }}">Registrar producto</a>
+</div>
+<p class="nota">La integridad compara el SHA-256 actual de cada archivo con el registrado al darlo de alta.</p>
+<div class="tabla-contenedor">
 <table>
-  <tr><th>#</th><th>Nombre</th><th>Precio</th><th>Estado</th><th>Integridad SHA-256</th><th></th></tr>
+  <thead><tr><th>Folio</th><th>Nombre</th><th class="importe">Precio</th><th>Estado</th><th>Integridad</th><th>Acciones</th></tr></thead>
+  <tbody>
   {% for p in productos %}
   <tr>
-    <td>{{ p.id }}</td><td>{{ p.name }}</td><td>{{ p.price|moneda }}</td>
+    <td>Nº {{ '%04d'|format(p.id) }}</td><td>{{ p.name }}</td><td class="importe">{{ p.price|moneda }}</td>
     <td><span class="estado {{ p.status|lower }}">{{ p.status }}</span></td>
-    <td>{% if integridad[p.id] %}<span class="estado pagada">OK</span>{% else %}<span class="estado rechazada">ALTERADO</span>{% endif %}
-        <br><code class="mini">{{ p.file_hash[:16] }}…</code></td>
+    <td>{% if integridad[p.id] %}<span class="estado exito">Íntegro</span>{% else %}<span class="estado fallo">Alterado</span>{% endif %}
+        <br><code>{{ p.file_hash[:16] }}…</code></td>
     <td>
       <a href="{{ url_for('operador.editar_producto', producto_id=p.id) }}">Editar</a>
       <form method="post" action="{{ url_for('operador.estado_producto', producto_id=p.id) }}" class="en-linea">
@@ -19,5 +25,7 @@
     </td>
   </tr>
   {% endfor %}
+  </tbody>
 </table>
+</div>
 {% endblock %}
