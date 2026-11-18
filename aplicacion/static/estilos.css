@@ -251,6 +251,14 @@ footer p { margin: 0 auto; }
   transform: scale(0); animation: punto-entra .5s var(--rebote) 1.6s forwards;
 }
 @keyframes punto-entra { to { transform: scale(1); } }
+/* Pulso que sale del punto: la copia se "marca" con la identidad del comprador */
+.simbolo .pulso {
+  fill: none; stroke: var(--bruma); stroke-width: 2; opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+  animation: pulso 2.4s ease-out 2.2s infinite;
+}
+.simbolo .pulso.retraso { animation-delay: 3.4s; }
+@keyframes pulso { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(4.5); opacity: 0; } }
 .haz { animation: escanear 3.2s ease-in-out 2.4s infinite; transform: translateY(-80px); opacity: 0; }
 .huella { animation: iluminar 3.2s ease-in-out 2.4s infinite; }
 @keyframes grabar { to { stroke-dashoffset: 0; } }
@@ -506,7 +514,7 @@ summary:hover { color: var(--marea-oscura); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .cresta { stroke-dashoffset: 0; }
-  .haz { display: none; }
+  .haz, .simbolo .pulso { display: none; }
   .cinta-pista { animation: none !important; }
   .js .revelar { opacity: 1; transform: none; }
 }
