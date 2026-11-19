@@ -248,7 +248,7 @@ def recuperar():
         else:
             registrar_evento("PASSWORD_RESET_REQUESTED", "FALLO", email=email, detalles="correo no registrado o inactivo")
         # Misma respuesta exista o no el correo (evita enumeración de usuarios)
-        flash("Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.", "ok")
+        flash("Listo. Si el correo está registrado, pronto te llegará un enlace para restablecer tu contraseña. Estate al pendiente.", "ok")
         return redirect(url_for("publico.login"))
     return render_template("publico/recuperar.html")
 

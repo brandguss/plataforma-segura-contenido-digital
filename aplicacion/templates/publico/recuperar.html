@@ -7,6 +7,6 @@
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <label>Correo registrado <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
   <button class="boton">Enviar enlace</button>
-  <p class="nota">El correo es simulado: el enlace se guarda en la carpeta <code>correo_simulado/</code> del servidor.</p>
+  <p class="nota">Si el correo está registrado, en unos minutos te llegará un mensaje con el enlace. Estate al pendiente y revisa también tu carpeta de correo no deseado.</p>
 </form>
 {% endblock %}
