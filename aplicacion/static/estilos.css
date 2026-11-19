@@ -447,6 +447,8 @@ tbody tr:hover td { background: rgba(185, 229, 239, .45); }
 td.importe, th.importe { text-align: right; white-space: nowrap; }
 tr.total th, tr.total td { font-size: 1.05rem; font-weight: 700; color: var(--noche); background: var(--bruma); border-top: 2px solid var(--marea); }
 table.compacta th, table.compacta td { padding: .55rem .8rem; font-size: .84rem; }
+.lista-productos { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; }
+.lista-productos li { font-weight: 500; }
 .codigo-evento { font-family: var(--mono); font-size: .78rem; font-weight: 500; color: var(--acero); }
 
 /* Estados: valores de la BD mostrados en tipo oración */

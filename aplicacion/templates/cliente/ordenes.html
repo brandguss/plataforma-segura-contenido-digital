@@ -5,11 +5,13 @@
 {% if ordenes %}
 <div class="tabla-contenedor">
 <table>
-  <thead><tr><th>Orden</th><th>Fecha</th><th class="importe">Total</th><th>Estado</th><th></th></tr></thead>
+  <thead><tr><th>Orden</th><th>Fecha</th><th>Productos</th><th class="importe">Total</th><th>Estado</th><th></th></tr></thead>
   <tbody>
   {% for o in ordenes %}
   <tr>
-    <td>Nº {{ o.id }}</td><td>{{ o.created_at[:10] }}</td><td class="importe">{{ o.total|moneda }}</td>
+    <td>Nº {{ o.id }}</td><td>{{ o.created_at[:10] }}</td>
+    <td><ul class="lista-productos">{% for nombre in (o.productos or '').split('|') if nombre %}<li>{{ nombre }}</li>{% endfor %}</ul></td>
+    <td class="importe">{{ o.total|moneda }}</td>
     <td><span class="estado {{ o.status|lower }}">{{ o.status }}</span></td>
     <td><a href="{{ url_for('cliente.orden', orden_id=o.id) }}">Ver orden</a></td>
   </tr>

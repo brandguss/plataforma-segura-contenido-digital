@@ -174,8 +174,13 @@ def checkout():
 @bp.route("/ordenes")
 @solo_cliente
 def ordenes():
+    # Cada orden trae los nombres de sus productos (separados por "|" para listarlos en la vista)
     filas = get_db().execute(
-        "SELECT * FROM orders WHERE user_id = ? ORDER BY id DESC", (g.user["id"],)
+        "SELECT o.*, GROUP_CONCAT(p.name, '|') AS productos FROM orders o"
+        " JOIN order_items oi ON oi.order_id = o.id"
+        " JOIN products p ON p.id = oi.product_id"
+        " WHERE o.user_id = ? GROUP BY o.id ORDER BY o.id DESC",
+        (g.user["id"],),
     ).fetchall()
     return render_template("cliente/ordenes.html", ordenes=filas)
 
