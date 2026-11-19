@@ -16,9 +16,9 @@
     <h2>Cambiar contraseña</h2>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input type="hidden" name="accion" value="password">
-    <label>Contraseña actual <input type="password" name="actual" required autocomplete="current-password"></label>
-    <label>Nueva contraseña <input type="password" name="password" required autocomplete="new-password"></label>
-    <label>Confirmar contraseña <input type="password" name="password2" required autocomplete="new-password"></label>
+    <label>Contraseña actual <input type="password" name="actual" data-ojo required autocomplete="current-password"></label>
+    <label>Nueva contraseña <input type="password" name="password" data-ojo required autocomplete="new-password"></label>
+    <label>Confirmar contraseña <input type="password" name="password2" data-ojo required autocomplete="new-password"></label>
     <button class="boton">Cambiar contraseña</button>
   </form>
 </div>
