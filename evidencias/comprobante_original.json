@@ -1,7 +1,7 @@
 {
   "contenido": {
     "emisor": "Plataforma Segura de Contenido Digital",
-    "fecha": "2026-11-18T04:08:06Z",
+    "fecha": "2026-11-19T13:37:08Z",
     "moneda": "MXN",
     "numero_orden": 1,
     "productos": [
@@ -11,7 +11,7 @@
         "precio_centavos": 14900
       }
     ],
-    "referencia_transaccion": "SIM-696758444C88A28E",
+    "referencia_transaccion": "SIM-B46DB367074A8776",
     "total_centavos": 14900,
     "usuario": {
       "email": "cliente1@demo.local",
@@ -19,7 +19,7 @@
       "nombre": "Carla Cliente"
     }
   },
-  "firma": "S+88n4y0CvpsnI/VMo3Y1/t1qUXuFGKUTapOoVWc5FfpNeYzNgI6AkWNY+cfGokCjXHVe7Tnhz/SJzpHXbyFR3Kd22kD4OsfcV7i+Iab0n6iVViI2reJCEi+zeYsMwCsbBueeaC8Sd8kUlMP7McGdRh6H90JeX2guNHdo/1XReNGDlOnz528kAUmqfpUgaSSQ79ZWaIffPXINUkspVUDpde9IBhXunxO1lXI6p5Oz6TdD64JJZgc8MH5Fh5nOTM0WMkH0QQAKWLHAIuqceA5dF7tjsxx0WiO5vtTgP4WDMWBFrTgPSXBD+nJXP5VIjjBpJ35zE7lfWofT5noF0s5lMdp24D3NA9F6m47ekDkEoxKlVDUzoA5gNtYhApTDVokvVReU44QDsORNftfTnghhLlERmHFcxYoL5O4Vj1sYObJfU94JQkYzfYUZH/Faa8wyjwndjgr5PpGSia3oDu34JX15tMx8cGKgpqe7XOEvop87NJ4pdCy1RNhOGIM/itW",
+  "firma": "A2bSewlUkDD7GH5npenEnSZs1iMHxaimCovREO+USV5gqux12hyfQiPLt/LAo6Lw9Yaj6j+OGUf6HYSGB7OnJUKZgdcZYA0qOxR/vIZMTeprvGSkLXXIRpqj0z3hj/b0yv4UpUAeNYNfRcYYVwkBy+dSFCuSuFNZjka8YVDjkN3nGbw2Y67yo8MyDP6WJWO7OY5UpWaY8ZtjZFP0QeOhxHHIHdPet618tTKloquYlTh7NZ9u4KA/3ZyvVNS2WKPFXXp0vpEPr5fXNM76EWXx45QDJ60clVt3GCUp+bKJkMKqvnlJeqRtuMxa7GavL+cooK6R3DJJPv4KvKB+LnT+QxQhNh5SlW9QCgenagjB62cqXuBEWHqfDFjVG6+WDG1lkFH6Vd1SCRGV2H0ZkQJ4ZeMosGuw3SiIJNhwHdNel7IvKCey1fPOqI5BipYVnx++jo4tx1rYLCZJzeUHJ1TXIiohOy7G+/47ihXWb8WSxrs8yRf5z/gr7DKEmO0Dz96p",
   "algoritmo": "RSA-PSS-SHA256",
   "key_id": "b96432894e7a8cf2669b37c3d2b5163a"
 }

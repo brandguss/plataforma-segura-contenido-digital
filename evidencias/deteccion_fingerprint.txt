@@ -4,8 +4,8 @@ $ /usr/local/bin/python3 scripts/detectar_fingerprint.py evidencias/copia_con_fi
   "analisis": {
     "encontrado": true,
     "resultado": {
-      "fingerprint": "SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
-      "fid": "3322cbf1",
+      "fingerprint": "SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
+      "fid": "367e77ee",
       "user_id": 3,
       "order_id": 1,
       "product_id": 2,
@@ -13,8 +13,8 @@ $ /usr/local/bin/python3 scripts/detectar_fingerprint.py evidencias/copia_con_fi
     },
     "candidatos": [
       {
-        "fingerprint": "SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
-        "fid": "3322cbf1",
+        "fingerprint": "SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
+        "fid": "367e77ee",
         "user_id": 3,
         "order_id": 1,
         "product_id": 2,

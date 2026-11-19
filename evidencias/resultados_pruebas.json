@@ -67,7 +67,7 @@
     "orden": 9,
     "prueba": "Producto descargado",
     "esperado": "Fingerprint recuperable",
-    "obtenido": "Recuperado SCD1-3322cbf1-U3-O1-P2-b901243f1201d16f",
+    "obtenido": "Recuperado SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
     "pasa": true,
     "detalle": "usuario=3 orden=1 producto=2; HMAC válido; capas: metadato=True, texto en 5/5 páginas. Archivo: evidencias/copia_con_fingerprint.pdf"
   },
@@ -101,6 +101,6 @@
     "esperado": "Información crítica recuperada",
     "obtenido": "Usuarios, productos y órdenes recuperados",
     "pasa": true,
-    "detalle": "Respaldo AES-256-GCM respaldo_20261118_040808.psc. Antes: users=4, products=3, orders=2, payments=2, receipts=2. Después: users=4, products=3, orders=2, payments=2, receipts=2. Productos íntegros: 3/3"
+    "detalle": "Respaldo AES-256-GCM respaldo_20261119_133710.psc. Antes: users=4, products=3, orders=2, payments=2, receipts=2. Después: users=4, products=3, orders=2, payments=2, receipts=2. Productos íntegros: 3/3"
   }
 ]
