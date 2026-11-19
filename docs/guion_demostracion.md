@@ -51,7 +51,7 @@ Ten importada `certificados/ca.crt` en el navegador. Usa una ventana normal y un
 
 ## Parte 6. Pruebas automáticas y auditoría
 
-23. Ejecutar `python -m pytest tests -v`: 42 pruebas pasan.
+23. Ejecutar `python -m pytest tests -v`: 43 pruebas pasan.
 24. Mostrar `evidencias/resultados_pruebas.md` con la tabla de las 13 pruebas obligatorias.
 25. Presentar `docs/auditoria.md`: el alcance, los criterios, los 20 controles y los 5 hallazgos con su prueba de evidencia.
 26. Presentar `docs/despliegue_ssh_vpn_ipsec.md`: el diagrama con la VPN antes de SSH y el uso de IPSec en modo túnel entre sedes.

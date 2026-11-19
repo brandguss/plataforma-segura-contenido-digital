@@ -62,7 +62,7 @@ plataforma-segura-contenido-digital/
 ├── respaldos/                   Respaldos cifrados (excluidos del repositorio)
 ├── evidencias/                  Evidencias de las pruebas obligatorias
 ├── docs/                        Arquitectura de seguridad, SSH/VPN/IPSec, auditoría, demo
-├── tests/                       Pruebas automáticas (42 en total, 13 obligatorias)
+├── tests/                       Pruebas automáticas (43 en total, 13 obligatorias)
 ├── secretos/                    CLAVES PRIVADAS (excluida por .gitignore, se genera al instalar)
 ├── requirements.txt
 └── README.md
@@ -162,6 +162,8 @@ No se envían correos reales. El enlace temporal (15 minutos, un solo uso) se gu
 | CLIENTE | `cliente1@demo.local` | `Cliente#2026Uno` |
 | CLIENTE | `cliente2@demo.local` | `Cliente#2026Dos` |
 
+Las contraseñas nuevas deben tener al menos 10 caracteres, una mayúscula, una minúscula y un número. Los formularios de registro, perfil y restablecimiento muestran estos requisitos en vivo.
+
 Tarjetas **de prueba** para el pago simulado (el número nunca se almacena):
 
 | Tarjeta | Resultado |
@@ -194,7 +196,7 @@ Tarjetas **de prueba** para el pago simulado (el número nunca se almacena):
 ## Pruebas y evidencias
 
 ```bash
-python -m pytest tests -v             # 42 pruebas (13 obligatorias + 23 de controles + 6 de auditoría)
+python -m pytest tests -v             # 43 pruebas (13 obligatorias + 24 de controles + 6 de auditoría)
 python scripts/generar_evidencias.py  # ejecuta todo y regenera evidencias/
 ```
 

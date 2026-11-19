@@ -9,7 +9,7 @@ python scripts/generar_evidencias.py
 | Archivo | Prueba | Contenido |
 |---|---|---|
 | `resultados_pruebas.md` / `.json` | 1 a 13 | Tabla con la prueba, el resultado esperado, el obtenido y el detalle |
-| `salida_pytest.txt` | Todas | Salida completa de `pytest -v` (42 pruebas) |
+| `salida_pytest.txt` | Todas | Salida completa de `pytest -v` (43 pruebas) |
 | `comprobante_original.json` | 7 | Comprobante firmado tal como lo emite la plataforma |
 | `verificacion_comprobante_original.txt` | 7 | Resultado: FIRMA VÁLIDA |
 | `comprobante_modificado.json` | 8 | El mismo comprobante con `total_centavos` alterado |

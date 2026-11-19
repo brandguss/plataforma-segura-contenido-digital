@@ -131,6 +131,8 @@ flowchart LR
 | Sesiones | Token aleatorio de 256 bits, guardado en la BD solo como hash. Expira tras 30 min de inactividad o 8 h en total, se rota en cada login y es revocable |
 | Enumeración de usuarios | El login, el registro y la recuperación responden con el mismo mensaje. Si el usuario no existe se ejecuta un hash ficticio para igualar el tiempo de respuesta |
 | Fuerza bruta | Bloqueo temporal tras 5 intentos durante 15 min; el ADMINISTRADOR puede configurarlo |
+| Política de contraseñas | Longitud mínima configurable (10 por defecto), al menos una mayúscula, una minúscula y un número. El navegador muestra los requisitos en vivo y bloquea el envío si falta alguno; el servidor vuelve a validar las mismas reglas en `validar_password`, así que saltarse el JavaScript no sirve |
+| Información interna | La interfaz no revela detalles del servidor: por ejemplo, la recuperación de contraseña solo indica que llegará un correo, y el detalle del producto no expone el SHA-256 (solo lo ve el OPERADOR) |
 | Manejo de errores | Páginas genéricas para 400, 403, 404, 413 y 500. El detalle técnico va a `base_de_datos/errores.log` y `DEBUG` está desactivado |
 | Redirecciones | `next` solo acepta rutas internas relativas |
 | Enlaces por correo | Se construyen con `PUBLIC_BASE_URL` fija, no con la cabecera `Host` |

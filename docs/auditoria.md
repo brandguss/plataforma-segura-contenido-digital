@@ -75,7 +75,7 @@ python -m pytest tests -v
 | Conjunto | Archivo | Pruebas | Resultado |
 |---|---|---|---|
 | Obligatorias (sección 19) | `tests/test_obligatorias.py` | 13 | 13 pasan |
-| Controles complementarios | `tests/test_controles.py` | 23 | 23 pasan |
+| Controles complementarios | `tests/test_controles.py` | 24 | 24 pasan |
 | Hallazgos de auditoría | `tests/test_auditoria.py` | 6 | 6 pasan (confirman las condiciones encontradas) |
 
 Pruebas manuales complementarias:
