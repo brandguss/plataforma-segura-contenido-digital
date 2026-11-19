@@ -17,11 +17,17 @@
     <td>{% if integridad[p.id] %}<span class="estado exito">Íntegro</span>{% else %}<span class="estado fallo">Alterado</span>{% endif %}
         <br><code>{{ p.file_hash[:16] }}…</code></td>
     <td>
-      <a href="{{ url_for('operador.editar_producto', producto_id=p.id) }}">Editar</a>
-      <form method="post" action="{{ url_for('operador.estado_producto', producto_id=p.id) }}" class="en-linea">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <button class="enlace">{{ 'Desactivar' if p.status == 'ACTIVO' else 'Activar' }}</button>
-      </form>
+      <div class="acciones-fila">
+        <a class="boton chico secundario" href="{{ url_for('operador.editar_producto', producto_id=p.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('operador.estado_producto', producto_id=p.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          {% if p.status == 'ACTIVO' %}
+          <button class="boton chico peligro-contorno">Desactivar</button>
+          {% else %}
+          <button class="boton chico exito">Activar</button>
+          {% endif %}
+        </form>
+      </div>
     </td>
   </tr>
   {% endfor %}
