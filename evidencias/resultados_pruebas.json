@@ -53,7 +53,7 @@
     "esperado": "Firma digital válida",
     "obtenido": "FIRMA VÁLIDA (biblioteca y página /cliente/verificar)",
     "pasa": true,
-    "detalle": "Orden 1, RSA-PSS-SHA256, key_id b96432894e7a8cf2669b37c3d2b5163a. Archivo: evidencias/comprobante_original.json"
+    "detalle": "Orden 1, RSA-PSS-SHA256, key_id 0dc4bbfff35bbe99cdf5f7d4520a8c07. Archivo: evidencias/comprobante_original.json"
   },
   {
     "orden": 8,
@@ -67,7 +67,7 @@
     "orden": 9,
     "prueba": "Producto descargado",
     "esperado": "Fingerprint recuperable",
-    "obtenido": "Recuperado SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
+    "obtenido": "Recuperado SCD1-6c1f130c-U3-O1-P2-1e4af0f2b7ffc439",
     "pasa": true,
     "detalle": "usuario=3 orden=1 producto=2; HMAC válido; capas: metadato=True, texto en 5/5 páginas. Archivo: evidencias/copia_con_fingerprint.pdf"
   },
@@ -85,7 +85,7 @@
     "esperado": "Hash esperado",
     "obtenido": "SHA-256 coincide",
     "pasa": true,
-    "detalle": "manual_python_basico.pdf<br>registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1<br>calculado:  6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1"
+    "detalle": "manual_python_basico.pdf<br>registrado: 5ff4c0ef938bcf72fb1b1367f6178c23d8b7c3ee7b42c80523613577c8b593f7<br>calculado:  5ff4c0ef938bcf72fb1b1367f6178c23d8b7c3ee7b42c80523613577c8b593f7"
   },
   {
     "orden": 12,
@@ -93,7 +93,7 @@
     "esperado": "Hash diferente",
     "obtenido": "SHA-256 distinto; descarga bloqueada",
     "pasa": true,
-    "detalle": "registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1<br>calculado:  5722830bff7d67b68dfdea29b27bcc29ea334764f52bce343346f69daee7cfed<br>Evento INTEGRITY_FAILED registrado"
+    "detalle": "registrado: 5ff4c0ef938bcf72fb1b1367f6178c23d8b7c3ee7b42c80523613577c8b593f7<br>calculado:  a4c6c3247aa2dd525bbdb1382ef87ef40beb09b710a1a1f0c5054cee09681a2a<br>Evento INTEGRITY_FAILED registrado"
   },
   {
     "orden": 13,
@@ -101,6 +101,6 @@
     "esperado": "Información crítica recuperada",
     "obtenido": "Usuarios, productos y órdenes recuperados",
     "pasa": true,
-    "detalle": "Respaldo AES-256-GCM respaldo_20261119_133710.psc. Antes: users=4, products=3, orders=2, payments=2, receipts=2. Después: users=4, products=3, orders=2, payments=2, receipts=2. Productos íntegros: 3/3"
+    "detalle": "Respaldo AES-256-GCM respaldo_20261119_214211.psc. Antes: users=4, products=3, orders=2, payments=2, receipts=2. Después: users=4, products=3, orders=2, payments=2, receipts=2. Productos íntegros: 3/3"
   }
 ]

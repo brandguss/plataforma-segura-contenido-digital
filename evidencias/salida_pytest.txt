@@ -1,4 +1,4 @@
-$ /usr/local/bin/python3 -m pytest tests -v -p no:cacheprovider
+$ C:\Users\brand\OneDrive\Documentos\ProyectoFinalSEG_INFO2\plataforma-segura-contenido-digital\.venv\Scripts\python.exe -m pytest tests -v -p no:cacheprovider
 
   [=] Clave de firma existente, se conserva
   [=] Clave HMAC de fingerprint existente, se conserva
@@ -11,10 +11,9 @@ $ /usr/local/bin/python3 -m pytest tests -v -p no:cacheprovider
   [+] Esquema listo (12 tablas): users, products, cart_items, orders, order_items, payments, receipts, downloads, security_events, sessions, password_resets, settings
   [+] 4 usuarios de prueba creados
   [+] 3 productos registrados con su SHA-256
-============================= test session starts ==============================
-platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python3
-rootdir: /home/claude/psc
-plugins: platformdirs-4.13.5, anyio-4.15.1
+============================= test session starts =============================
+platform win32 -- Python 3.13.15, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\brand\OneDrive\Documentos\ProyectoFinalSEG_INFO2\plataforma-segura-contenido-digital\.venv\Scripts\python.exe
+rootdir: C:\Users\brand\OneDrive\Documentos\ProyectoFinalSEG_INFO2\plataforma-segura-contenido-digital
 collecting ... collected 43 items
 
 tests/test_auditoria.py::test_h1_bloqueo_por_cuenta_permite_negar_el_servicio PASSED [  2%]
@@ -61,4 +60,4 @@ tests/test_obligatorias.py::test_11_archivo_original_hash PASSED         [ 95%]
 tests/test_obligatorias.py::test_12_archivo_modificado_hash PASSED       [ 97%]
 tests/test_obligatorias.py::test_13_restauracion_respaldo PASSED         [100%]
 
-============================= 43 passed in 14.92s ==============================
+============================= 43 passed in 14.89s =============================

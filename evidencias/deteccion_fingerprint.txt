@@ -1,11 +1,11 @@
-$ /usr/local/bin/python3 scripts/detectar_fingerprint.py evidencias/copia_con_fingerprint.pdf
+$ C:\Users\brand\OneDrive\Documentos\ProyectoFinalSEG_INFO2\plataforma-segura-contenido-digital\.venv\Scripts\python.exe scripts/detectar_fingerprint.py evidencias/copia_con_fingerprint.pdf
 
 {
   "analisis": {
     "encontrado": true,
     "resultado": {
-      "fingerprint": "SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
-      "fid": "367e77ee",
+      "fingerprint": "SCD1-6c1f130c-U3-O1-P2-1e4af0f2b7ffc439",
+      "fid": "6c1f130c",
       "user_id": 3,
       "order_id": 1,
       "product_id": 2,
@@ -13,8 +13,8 @@ $ /usr/local/bin/python3 scripts/detectar_fingerprint.py evidencias/copia_con_fi
     },
     "candidatos": [
       {
-        "fingerprint": "SCD1-367e77ee-U3-O1-P2-d7ca9426e4c05df9",
-        "fid": "367e77ee",
+        "fingerprint": "SCD1-6c1f130c-U3-O1-P2-1e4af0f2b7ffc439",
+        "fid": "6c1f130c",
         "user_id": 3,
         "order_id": 1,
         "product_id": 2,

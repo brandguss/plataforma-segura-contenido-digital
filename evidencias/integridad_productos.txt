@@ -1,4 +1,4 @@
-$ /usr/local/bin/python3 scripts/verificar_hash.py
+$ C:\Users\brand\OneDrive\Documentos\ProyectoFinalSEG_INFO2\plataforma-segura-contenido-digital\.venv\Scripts\python.exe scripts/verificar_hash.py
 
 [OK] #1 Manual de Python Básico
      registrado: 6564b287db49e442a47669329688ac05e5ac7dd32483001c6dd674e17d1186f1
