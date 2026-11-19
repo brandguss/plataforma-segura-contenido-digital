@@ -73,7 +73,7 @@ def catalogo():
 @bp.route("/producto/<int:producto_id>")
 def producto(producto_id):
     fila = get_db().execute(
-        "SELECT id, name, description, price, file_hash, created_at FROM products"
+        "SELECT id, name, description, price, created_at FROM products"
         " WHERE id = ? AND status = 'ACTIVO'",
         (producto_id,),
     ).fetchone()
