@@ -19,6 +19,7 @@
     <label>Contraseña actual <input type="password" name="actual" data-ojo required autocomplete="current-password"></label>
     <label>Nueva contraseña <input type="password" name="password" data-ojo required autocomplete="new-password"></label>
     <label>Confirmar contraseña <input type="password" name="password2" data-ojo required autocomplete="new-password"></label>
+    {% with campo='password', confirmar='password2' %}{% include "parciales/requisitos_password.html" %}{% endwith %}
     <button class="boton">Cambiar contraseña</button>
   </form>
 </div>
