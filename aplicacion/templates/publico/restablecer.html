@@ -5,8 +5,9 @@
   <h1>Nueva contraseña</h1>
   <p class="entrada">Al guardarla se cerrarán todas tus sesiones abiertas.</p>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <label>Nueva contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password"></label>
-  <label>Confirmar contraseña <input type="password" name="password2" maxlength="128" required autocomplete="new-password"></label>
+  <label>Nueva contraseña <input type="password" name="password" data-ojo maxlength="128" required autocomplete="new-password"></label>
+  <label>Confirmar contraseña <input type="password" name="password2" data-ojo maxlength="128" required autocomplete="new-password"></label>
+  {% with campo='password', confirmar='password2' %}{% include "parciales/requisitos_password.html" %}{% endwith %}
   <button class="boton">Guardar contraseña</button>
 </form>
 {% endblock %}
