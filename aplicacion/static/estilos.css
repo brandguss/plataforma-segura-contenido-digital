@@ -381,6 +381,23 @@ td select, td input { display: inline-block; width: auto; margin: 0; padding: .4
 .tarjetas-prueba { display: grid; gap: .35rem; margin: .6rem 0 0; }
 .tarjetas-prueba span { display: flex; justify-content: space-between; gap: 1rem; }
 
+/* ---------- Mostrar / ocultar contraseña ---------- */
+.campo-clave { position: relative; display: block; margin-top: .4rem; }
+.campo-clave input { margin-top: 0; padding-right: 3rem; }
+.ojo {
+  position: absolute; top: 50%; right: .45rem; transform: translateY(-50%);
+  width: 2.2rem; height: 2.2rem; display: grid; place-items: center;
+  border: 0; border-radius: 8px; background: transparent; color: var(--texto-suave); cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
+}
+.ojo:hover { background: var(--bruma-suave); color: var(--acero); }
+.ojo svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ojo .ojo-cerrado { display: none; }
+.ojo.visible { color: var(--acero); }
+.ojo.visible .ojo-abierto { display: none; }
+.ojo.visible .ojo-cerrado { display: inline; }
+.ojo:active svg { transform: scale(.85); }
+
 /* ---------- Requisitos de contraseña ---------- */
 .requisitos { list-style: none; padding: .8rem 1rem; margin: -.3rem 0 .8rem; display: grid; gap: .3rem; background: var(--bruma-suave); border-radius: var(--radio-control); font-size: .84rem; color: var(--texto-suave); }
 .requisitos li { display: flex; align-items: center; gap: .55rem; transition: color .25s ease; }

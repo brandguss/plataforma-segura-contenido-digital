@@ -7,8 +7,8 @@
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <label>Nombre <input name="name" maxlength="80" required autocomplete="name"></label>
   <label>Correo electrónico <input type="email" name="email" maxlength="254" required autocomplete="username"></label>
-  <label>Contraseña <input type="password" name="password" maxlength="128" required autocomplete="new-password"></label>
-  <label>Confirmar contraseña <input type="password" name="password2" maxlength="128" required autocomplete="new-password"></label>
+  <label>Contraseña <input type="password" name="password" data-ojo maxlength="128" required autocomplete="new-password"></label>
+  <label>Confirmar contraseña <input type="password" name="password2" data-ojo maxlength="128" required autocomplete="new-password"></label>
   {% with campo='password', confirmar='password2' %}{% include "parciales/requisitos_password.html" %}{% endwith %}
   <button class="boton">Crear cuenta</button>
   <div class="pie-formulario"><p>¿Ya tienes cuenta? <a href="{{ url_for('publico.login') }}">Iniciar sesión</a></p></div>
