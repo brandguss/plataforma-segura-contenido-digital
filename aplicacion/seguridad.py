@@ -278,8 +278,12 @@ def validar_password(valor: str) -> str:
     minimo = get_setting("password_min_length")
     if len(valor) < minimo or len(valor) > 128:
         raise ErrorValidacion(f"La contraseña debe tener entre {minimo} y 128 caracteres.")
-    if not (re.search(r"[A-Za-z]", valor) and re.search(r"\d", valor)):
-        raise ErrorValidacion("La contraseña debe combinar letras y números.")
+    if not re.search(r"[A-ZÁÉÍÓÚÑ]", valor):
+        raise ErrorValidacion("La contraseña debe incluir al menos una letra mayúscula.")
+    if not re.search(r"[a-záéíóúñ]", valor):
+        raise ErrorValidacion("La contraseña debe incluir al menos una letra minúscula.")
+    if not re.search(r"\d", valor):
+        raise ErrorValidacion("La contraseña debe incluir al menos un número.")
     return valor
 
 

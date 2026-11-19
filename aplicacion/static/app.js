@@ -27,7 +27,7 @@
   /* 2. Estado "procesando" al enviar un formulario (también evita doble envío) */
   document.addEventListener("submit", function (e) {
     var formulario = e.target;
-    if (formulario.method.toLowerCase() !== "post") return;
+    if (e.defaultPrevented || formulario.method.toLowerCase() !== "post") return;
     var boton = e.submitter && e.submitter.classList.contains("boton")
       ? e.submitter
       : formulario.querySelector("button.boton");
@@ -82,5 +82,55 @@
     }
     el.textContent = "0";
     requestAnimationFrame(paso);
+  });
+
+  /* 5. Verificador de requisitos de contraseña (registro, perfil, restablecer).
+        El servidor aplica exactamente las mismas reglas en seguridad.validar_password. */
+  var REGLAS = {
+    longitud: function (v, min) { return v.length >= min; },
+    mayuscula: function (v) { return /[A-ZÁÉÍÓÚÑ]/.test(v); },
+    minuscula: function (v) { return /[a-záéíóúñ]/.test(v); },
+    numero: function (v) { return /\d/.test(v); }
+  };
+  var NIVELES = ["Muy débil", "Débil", "Aceptable", "Buena", "Fuerte"];
+
+  document.querySelectorAll(".requisitos").forEach(function (lista) {
+    var formulario = lista.closest("form");
+    var campo = formulario.querySelector('[name="' + lista.dataset.campo + '"]');
+    var confirmar = formulario.querySelector('[name="' + lista.dataset.confirmar + '"]');
+    var minimo = parseInt(lista.dataset.min, 10) || 10;
+    var barra = formulario.querySelector(".fuerza-barra");
+    var texto = formulario.querySelector(".fuerza-texto");
+    lista.classList.add("activa");
+
+    function evaluar() {
+      var v = campo.value, cumplidas = 0, total = 0;
+      lista.querySelectorAll("li").forEach(function (li) {
+        var regla = li.dataset.regla, ok;
+        if (regla === "coincide") ok = v.length > 0 && confirmar && v === confirmar.value;
+        else { ok = REGLAS[regla](v, minimo); total++; if (ok) cumplidas++; }
+        li.classList.toggle("cumple", !!ok);
+      });
+      // Nivel: reglas cumplidas, más un extra por símbolo y otro por longitud amplia
+      var nivel = cumplidas === total ? 2 : Math.min(cumplidas, 1);
+      if (cumplidas === total && /[^A-Za-z0-9ÁÉÍÓÚÑáéíóúñ]/.test(v)) nivel++;
+      if (cumplidas === total && v.length >= minimo + 4) nivel++;
+      if (barra) {
+        barra.style.width = v ? (nivel + 1) * 20 + "%" : "0";
+        barra.dataset.nivel = v ? nivel : "";
+      }
+      if (texto) texto.textContent = v ? "Seguridad: " + NIVELES[nivel] : "";
+      return cumplidas === total && (!confirmar || v === confirmar.value);
+    }
+
+    campo.addEventListener("input", evaluar);
+    if (confirmar) confirmar.addEventListener("input", evaluar);
+    // Fase de captura: corre antes del estado "procesando" de los botones
+    formulario.addEventListener("submit", function (e) {
+      if (evaluar()) return;
+      e.preventDefault();
+      lista.classList.remove("sacudir"); void lista.offsetWidth; lista.classList.add("sacudir");
+      campo.focus();
+    }, true);
   });
 })();

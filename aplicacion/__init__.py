@@ -16,6 +16,7 @@ from .seguridad import (
     cargar_usuario,
     csrf_token,
     formato_moneda,
+    get_setting,
     validar_csrf,
 )
 
@@ -58,6 +59,8 @@ def create_app(config_extra=None):
 
     # --- Plantillas -------------------------------------------------------
     app.jinja_env.globals["csrf_token"] = csrf_token
+    # Longitud mínima vigente (la define el ADMINISTRADOR) para el verificador de contraseñas
+    app.jinja_env.globals["minimo_password"] = lambda: get_setting("password_min_length")
     app.jinja_env.filters["moneda"] = formato_moneda
 
     @app.context_processor

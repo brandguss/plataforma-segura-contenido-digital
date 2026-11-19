@@ -271,3 +271,15 @@ def test_pago_simulado_no_guarda_numero_de_tarjeta(client, app):
     comprar(client, 1)
     volcado = "\n".join(_bd(app).iterdump())
     assert "4242424242424242" not in volcado
+
+
+def test_politica_de_contrasenas_en_el_servidor(client, app):
+    """El servidor rechaza contraseñas que no cumplen los requisitos aunque se salte el verificador del navegador."""
+    for password in ("clavesegura2026", "CLAVESEGURA2026", "ClaveSegura", "Corta1"):
+        t = csrf_de(client.get("/registro").get_data(as_text=True))
+        r = client.post("/registro", data={"csrf_token": t, "name": "Prueba", "email": "politica@demo.local",
+                                           "password": password, "password2": password})
+        assert r.status_code == 400, password
+    conn = _bd(app)
+    assert conn.execute("SELECT COUNT(*) FROM users WHERE email = 'politica@demo.local'").fetchone()[0] == 0
+    conn.close()

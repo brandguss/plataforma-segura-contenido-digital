@@ -381,6 +381,28 @@ td select, td input { display: inline-block; width: auto; margin: 0; padding: .4
 .tarjetas-prueba { display: grid; gap: .35rem; margin: .6rem 0 0; }
 .tarjetas-prueba span { display: flex; justify-content: space-between; gap: 1rem; }
 
+/* ---------- Requisitos de contraseña ---------- */
+.requisitos { list-style: none; padding: .8rem 1rem; margin: -.3rem 0 .8rem; display: grid; gap: .3rem; background: var(--bruma-suave); border-radius: var(--radio-control); font-size: .84rem; color: var(--texto-suave); }
+.requisitos li { display: flex; align-items: center; gap: .55rem; transition: color .25s ease; }
+.requisitos li::before {
+  content: ""; flex: none; width: 1rem; height: 1rem; border-radius: 50%; border: 2px solid var(--linea-fuerte);
+  background: #fff center / 70% no-repeat; transition: background-color .25s ease, border-color .25s ease, transform .3s var(--rebote);
+}
+.requisitos li.cumple { color: var(--exito); font-weight: 500; }
+.requisitos li.cumple::before {
+  border-color: var(--acero); background-color: var(--acero); transform: scale(1.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-4.9' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.requisitos.sacudir { animation: sacudir .45s ease; box-shadow: inset 0 0 0 1.5px var(--peligro); }
+@keyframes sacudir { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.fuerza { display: none; height: 6px; border-radius: 999px; background: var(--linea); overflow: hidden; margin: 0 0 .3rem; }
+.requisitos.activa ~ .fuerza { display: block; }
+.fuerza-barra { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--peligro); transition: width .35s var(--suave), background-color .35s ease; }
+.fuerza-barra[data-nivel="1"] { background: var(--pendiente); }
+.fuerza-barra[data-nivel="2"] { background: var(--marea); }
+.fuerza-barra[data-nivel="3"], .fuerza-barra[data-nivel="4"] { background: var(--exito); }
+.fuerza-texto { min-height: 1.2em; margin: 0 0 1rem; font-size: .8rem; }
+
 /* ---------- Tablas ---------- */
 .tabla-contenedor { overflow-x: auto; margin-bottom: 1.75rem; border: 1px solid var(--linea); border-radius: var(--radio); background: var(--superficie); box-shadow: var(--sombra); }
 table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .92rem; }
